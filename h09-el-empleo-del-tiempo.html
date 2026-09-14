@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<title>H-09 · El empleo del tiempo</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: #6f6f6f;
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .hoja {
+    width: 297mm; height: 210mm;
+    background: #fff;
+    margin: 0 auto 6mm;
+    padding: 10mm 14mm 9mm 20mm;
+    position: relative;
+    overflow: hidden;
+  }
+  .hoja.verso { padding: 10mm 20mm 9mm 14mm; }
+
+  .cabezal {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 0.7mm solid #000;
+    padding-bottom: 1.3mm; margin-bottom: 1.1mm;
+  }
+  .sigla {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 19pt; font-weight: 700; letter-spacing: 0.06em; line-height: 1;
+  }
+  .ubic {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.5pt; letter-spacing: 0.12em; text-transform: uppercase;
+    text-align: right; line-height: 1.45;
+  }
+
+  .subcabezal {
+    display: flex; justify-content: space-between; gap: 8mm;
+    border-bottom: 0.25mm solid #000;
+    padding-bottom: 2mm; margin-bottom: 2.8mm;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.2pt; letter-spacing: 0.06em;
+  }
+  .campo { flex: 1 1 auto; }
+  .campo span { border-bottom: 0.25mm dotted #000; display: inline-block; min-width: 55mm; }
+
+  .titulo {
+    font-size: 19.5pt; font-weight: normal; line-height: 1.08;
+    margin: 0 0 1.2mm; letter-spacing: -0.015em;
+  }
+  .bajada {
+    font-style: italic; font-size: 9.4pt; line-height: 1.35;
+    margin: 0 0 3mm; padding-bottom: 2.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  .cols {
+    display: flex; align-items: stretch; gap: 0;
+    min-height: 148mm;
+  }
+  .hoja.p1 .cols { min-height: 128mm; }
+  .col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex; flex-direction: column;
+  }
+  .col.izq { padding-right: 5.2mm; border-right: 0.25mm solid #000; }
+  .col.der { padding-left: 5.2mm; }
+
+  h2 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 8.2pt; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; margin: 0 0 2.8mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  p {
+    font-size: 9.6pt; line-height: 1.58;
+    margin: 0 0 3.4mm; text-align: justify; hyphens: auto;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  .lead-time {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase;
+    margin: 0 0 3.2mm; line-height: 1.3;
+  }
+
+  .caja {
+    border: 0.35mm solid #000;
+    padding: 3.2mm 3mm 3.4mm;
+    margin: 0 0 3.4mm;
+  }
+  .caja:last-child { margin-bottom: 0; }
+  .caja .ctit {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.9pt; font-weight: 700; letter-spacing: 0.04em;
+    display: block; margin-bottom: 1.6mm;
+    padding-bottom: 1.3mm;
+    border-bottom: 0.25mm solid #000;
+  }
+  .caja p {
+    font-size: 8.85pt; line-height: 1.5; margin: 0;
+    text-align: justify;
+  }
+
+  .fill { flex: 1 1 auto; }
+
+  .nota-ed {
+    font-size: 7.2pt; line-height: 1.45;
+    margin: 4.5mm 0 0;
+    padding-top: 2.6mm;
+    border-top: 0.25mm solid #000;
+    text-align: justify;
+  }
+  .nota-ed b {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .pie {
+    position: absolute;
+    left: 20mm; right: 14mm; bottom: 5mm;
+    display: flex; justify-content: space-between;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.4pt; letter-spacing: 0.08em;
+    border-top: 0.25mm solid #000;
+    padding-top: 1.3mm;
+  }
+  .verso .pie { left: 14mm; right: 20mm; }
+
+  .cuerpo { padding-bottom: 7.5mm; }
+
+  .sep-bloque { margin-top: 4.5mm; }
+
+  /* p1 */
+  .hoja.p1 .caja { padding: 3mm 2.9mm 3.2mm; margin: 0 0 3mm; }
+  .hoja.p1 .caja p { font-size: 8.8pt; line-height: 1.48; }
+  .hoja.p1 .caja .ctit { font-size: 7.7pt; margin-bottom: 1.4mm; padding-bottom: 1.2mm; }
+  .hoja.p1 p { font-size: 9.45pt; line-height: 1.54; margin: 0 0 2.9mm; }
+  .hoja.p1 .sep-bloque { margin-top: 3.4mm; }
+  .hoja.p1 h2 { margin-bottom: 2.5mm; padding-bottom: 1.3mm; }
+
+  /* p2 verso — 3 piezas abiertas izq; docs+zonas der */
+  .hoja.verso .cols { min-height: 162mm; }
+  .hoja.verso .caja { padding: 3mm 2.9mm 3.2mm; margin: 0 0 2.8mm; }
+  .hoja.verso .caja p { font-size: 8.85pt; line-height: 1.46; }
+  .hoja.verso .caja .ctit { font-size: 7.7pt; margin-bottom: 1.3mm; padding-bottom: 1.1mm; }
+  .hoja.verso p { font-size: 9.2pt; line-height: 1.48; margin: 0 0 2.6mm; }
+  .hoja.verso .sep-bloque { margin-top: 2.8mm; }
+  .hoja.verso h2 { margin-bottom: 2.2mm; padding-bottom: 1.2mm; }
+  .hoja.verso .col.izq .caja { padding: 7mm 3.4mm 7.5mm; margin: 0 0 5mm; }
+  .hoja.verso .col.izq .caja p { font-size: 9.3pt; line-height: 1.58; }
+  .hoja.verso .col.izq .caja .ctit { font-size: 8.1pt; margin-bottom: 2mm; padding-bottom: 1.6mm; }
+  .hoja.verso .col.der .caja { padding: 3mm 2.9mm 3.2mm; margin: 0 0 2.6mm; }
+  .hoja.verso .col.der .caja p { font-size: 8.7pt; line-height: 1.44; }
+
+  /* p3 */
+  .hoja.p3 .cols { min-height: 162mm; }
+  .hoja.p3 .caja { padding: 4.8mm 3.4mm 5mm; margin: 0 0 4.5mm; }
+  .hoja.p3 .caja p { font-size: 9.3pt; line-height: 1.55; }
+  .hoja.p3 .caja .ctit { font-size: 8.1pt; margin-bottom: 1.8mm; padding-bottom: 1.5mm; }
+  .hoja.p3 p { font-size: 9.8pt; line-height: 1.65; margin: 0 0 4mm; }
+  .hoja.p3 .nota-ed { margin-top: 5.5mm; font-size: 7.2pt; line-height: 1.48; }
+  .hoja.p3 h2 { margin-bottom: 3.4mm; padding-bottom: 1.8mm; }
+  .hoja.p3 .sep-bloque { margin-top: 4.5mm; }
+  .hoja.p3 .col.der p { font-size: 10pt; line-height: 1.7; margin: 0 0 5mm; }
+
+  em, i { font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ===================== PÁGINA 1 ===================== -->
+<section class="hoja p1">
+  <div class="cabezal">
+    <div class="sigla">H-09</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+  <div class="subcabezal">
+    <div class="campo">Nombre <span>&nbsp;</span></div>
+    <div class="campo" style="flex:0 0 42mm; text-align:right;">Fecha <span style="min-width:28mm;">&nbsp;</span></div>
+  </div>
+  <h1 class="titulo">El empleo del tiempo</h1>
+  <p class="bajada">Lectura para el ensayo individual · Capítulo 3 · Sociología, 5º año.</p>
+
+  <div class="cuerpo">
+    <div class="cols">
+      <div class="col izq">
+        <p class="lead-time">Tiempo estimado de lectura: 10 minutos</p>
+        <h2>Una grilla pegada a la pared</h2>
+        <p>Al lado del pizarrón hay un papel con una tabla. Cinco columnas, una por día. Filas numeradas, una por módulo. En cada casillero, el nombre de una materia y las iniciales de quien la da. Nadie la firmó, nadie sabe muy bien quién la armó, y organiza treinta y cinco semanas de la vida de treinta personas.</p>
+        <p>Ese papel es un documento público, está impreso, no tiene datos de nadie y se puede analizar sin pedirle permiso a nadie. Para este eje es la fuente principal.</p>
+        <h2 class="sep-bloque">De dónde viene la grilla</h2>
+        <p>Foucault ubica el origen del horario mucho antes de la escuela moderna: en los monasterios. Las comunidades religiosas fueron, durante siglos, las especialistas del tiempo, las que sabían partir un día y repetirlo igual.</p>
+        <p>El procedimiento que heredan las escuelas, los talleres y los hospitales tiene tres operaciones. Primera: establecer ritmos, o sea decidir dónde corta un tramo y empieza el siguiente. Segunda: obligar a ocupaciones determinadas, o sea que cada tramo tenga una actividad asignada de antemano. Tercera: regular los ciclos de repetición, o sea que la semana que viene el tramo vuelva a existir, con el mismo contenido, y la siguiente también.</p>
+        <p>Las tres están en la grilla de la pared. El lunes de 9:20 a 10:00 hay Sociología, y lo va a haber todos los lunes hasta noviembre, decidido en marzo por gente que no estaba pensando en el lunes 4 de agosto.</p>
+      </div>
+      <div class="col der">
+        <h2>El procedimiento tiene cinco piezas</h2>
+        <p>«El control de la actividad» es uno de los cuatro procedimientos que Foucault describe en «Los cuerpos dóciles», y adentro se abre en cinco partes. Conviene tenerlas separadas, porque el ensayo se vuelve mucho más preciso cuando se nombra cuál de las cinco se está analizando.</p>
+        <div class="caja">
+          <span class="ctit">El empleo del tiempo</span>
+          <p>La grilla, con sus tres operaciones. Reparte el día en tramos y le pone nombre a cada uno.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La elaboración temporal del acto</span>
+          <p>El tiempo entra en el cuerpo. Un gesto se descompone en pasos, y cada paso recibe una duración. El ejemplo del libro es militar: en el siglo XVII se acostumbraba a los soldados a marchar al ritmo del tambor; en el XVIII, una ordenanza define cuatro clases de paso, cada uno con su tiempo asignado. En la escuela, el equivalente está en cualquier consigna que diga «diez minutos para leer, cinco para anotar, quince para poner en común».</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La correlación del cuerpo y el gesto</span>
+          <p>El control alcanza la postura entera que hace posible el gesto eficaz: cómo se sienta quien escribe, dónde van los pies, a qué altura el codo. Queda escrito en los manuales de caligrafía del siglo XVIII con un detalle que hoy sorprende.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-09 · pág. 1 de 3</span>
+    <span>El empleo del tiempo</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 2 ===================== -->
+<section class="hoja verso">
+  <div class="cabezal">
+    <div class="sigla">H-09</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 2mm;">
+    <div class="cols">
+      <div class="col izq">
+        <div class="caja">
+          <span class="ctit">La articulación cuerpo-objeto</span>
+          <p>La disciplina reglamenta la relación entre el cuerpo y la cosa que manipula: el fusil y el soldado, en el ejemplo del libro. Cada movimiento del arma, descompuesto y numerado.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La utilización exhaustiva</span>
+          <p>El principio que ordena las cuatro anteriores: de cada minuto se puede extraer algo más. La consigna no es evitar la pérdida de tiempo por razones morales, sino aumentar la cantidad de instantes aprovechables adentro de la misma hora.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Precisión · El timbre es otro procedimiento</span>
+          <p>Una precisión que vale para el ensayo: el timbre pertenece a otro procedimiento. Foucault trata las órdenes breves —una señal que se obedece sin que nadie la explique ni la fundamente— cuando habla del sistema de mando, dentro de «la composición de las fuerzas». La grilla reparte; la señal ejecuta. Un ensayo que las use como sinónimos pierde precisión.</p>
+        </div>
+      </div>
+      <div class="col der">
+        <h2>Dónde mirar, con qué documentos</h2>
+        <p>La grilla impresa, con sus casilleros vacíos y llenos. El libro de temas, que registra qué entró en cada tramo. La planilla de asistencia tomada al principio de cada módulo, que convierte la puntualidad en dato escrito y archivado. La duración del módulo, que en cada escuela mide cuarenta, sesenta u ochenta minutos, y el número de módulos seguidos sin corte. El lugar del recreo en la grilla, su duración y su posición en el día. Todo eso se releva sin nombrar a nadie.</p>
+        <h2 class="sep-bloque">Dónde el horario deja de ordenar el día</h2>
+        <p>Acá está la parte que la rúbrica premia. El horario ilumina una franja del día escolar y hay otra franja que no toca.</p>
+        <div class="caja">
+          <span class="ctit">El recreo</span>
+          <p>La grilla fija cuándo empieza y cuándo termina, y deja el adentro sin prescribir. Lo que pasa en esos quince minutos lo ordena otra cosa: los grupos, la cancha, la cola del kiosco, quién ocupa qué parte del patio. Para describir eso funcionan mejor las herramientas del otro autor del capítulo.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">El cambio de hora</span>
+          <p>El tramo que la grilla no nombra: existe porque un módulo termina y otro no empezó. En la práctica puede durar varios minutos y ahí no hay ocupación asignada.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">El día que la grilla no ve</span>
+          <p>El horario es idéntico para las treinta personas del curso y el día que producen es distinto. Quien viaja una hora y media, quien trabaja a la tarde, quien cuida hermanos, quien llega caminando en diez minutos: la misma tabla les organiza jornadas que no se parecen. Ese desajuste se describe mejor con las tasas del capítulo 1 y con la noción de capital que con el empleo del tiempo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-09 · pág. 2 de 3</span>
+    <span>El empleo del tiempo</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 3 ===================== -->
+<section class="hoja p3">
+  <div class="cabezal">
+    <div class="sigla">H-09</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 2mm;">
+    <div class="cols">
+      <div class="col izq">
+        <div class="caja">
+          <span class="ctit">La atención</span>
+          <p>El horario garantiza presencia y secuencia. Que alguien esté sentado en el tramo correcto no dice nada sobre qué está pensando. La «utilización exhaustiva» apunta justamente ahí, al interior del instante, y el libro no mide si lo consigue.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Cómo se fabrica la grilla</span>
+          <p>Antes de ser una técnica de poder, ese papel es el resultado de una negociación administrativa: qué días tiene disponibles cada docente, cuántas aulas hay, qué materias necesitan laboratorio, qué dice el convenio de trabajo. Leer la grilla solo como diseño disciplinario deja afuera el proceso que la produjo, y ese proceso se puede averiguar preguntando en la secretaría.</p>
+        </div>
+        <h2 class="sep-bloque">El estado de la discusión</h2>
+        <p>El compañero obligado de este eje está en Historia. En 1967, E. P. Thompson publicó «Time, Work-Discipline, and Industrial Capitalism» en la revista <i>Past &amp; Present</i>, número 38. Su argumento: antes del capitalismo industrial, el trabajo se medía por la tarea —se trabaja hasta que el encargo está terminado—, y el reloj impuso otra medida, en la que el tiempo se compra por hora. Thompson documenta el choque entre las dos medidas con reglamentos de fábrica, sermones metodistas sobre el levantarse temprano y folletos dirigidos a los pobres. También documenta la resistencia: el «San Lunes», la costumbre obrera de no trabajar los lunes, que los patrones tardaron décadas en desarmar.</p>
+      </div>
+      <div class="col der">
+        <p>Thompson y Foucault miran el mismo siglo con preguntas distintas y llegan a materiales parecidos. Poner los dos sobre el horario de la escuela es una operación de contraste, de las que la materia evalúa.</p>
+        <p>Dos rótulos para cerrar. El primero: «disciplina», en el vocabulario del libro, nombra una técnica de organización de cuerpos y tiempos, y no lo que en la escuela se llama disciplina cuando se habla de comportamiento. Confundir las dos acepciones arruina cualquier análisis. El segundo: no hay investigación empírica que mida qué produce un horario escolar sobre quienes lo cumplen. Lo que hay son fuentes históricas, reglamentos y análisis teóricos. El ensayo trabaja con eso, y la escuela agrega el único dato nuevo disponible, que es su propia grilla.</p>
+        <p class="nota-ed"><b>Nota de edición.</b> Foucault, <i>Vigilar y castigar</i>, tercera parte «Disciplina», capítulo 1 «Los cuerpos dóciles», sección «El control de la actividad»; edición de Siglo XXI, traducción de Aurelio Garzón del Camino. La paginación varía entre reimpresiones: verificar contra el ejemplar de aula. Thompson: «Time, Work-Discipline, and Industrial Capitalism», <i>Past &amp; Present</i>, n.º 38, diciembre de 1967, pp. 56-97; en castellano, «Tiempo, disciplina de trabajo y capitalismo industrial», en <i>Tradición, revuelta y consciencia de clase</i>, Crítica, Barcelona, 1979, y reproducido sin cambios en <i>Costumbres en común</i>, Crítica, 1995.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-09 · pág. 3 de 3</span>
+    <span>El empleo del tiempo</span>
+  </div>
+</section>
+
+</body>
+</html>

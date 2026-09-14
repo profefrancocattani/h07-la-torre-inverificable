@@ -64,10 +64,10 @@
   }
   .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
-  @media (max-width: 680px) {
+  @media (max-width: 900px) {
     .grid { grid-template-columns: 1fr; }
     .panel { padding: 22px 18px 28px; }
     h1 { font-size: 28px; }
@@ -132,7 +132,7 @@
         <div class="ubic">Sociología · 5º año<br>Lecturas para el ensayo</div>
       </div>
       <h1>Dashboard de lecturas</h1>
-      <p class="bajada">Dos fichas de la serie H. Abrí la que toque para imprimir o leer en pantalla.</p>
+      <p class="bajada">Tres fichas de la serie H. Abrí la que toque para imprimir o leer en pantalla.</p>
 
       <div class="grid">
         <a class="card" href="h07-la-torre-inverificable.html">
@@ -145,11 +145,16 @@
           <p class="name">El título ya es una disputa</p>
           <div class="meta">Capítulo 3 · ensayo individual · 10 min<br>Abrir ficha →</div>
         </a>
+        <a class="card" href="h09-el-empleo-del-tiempo.html">
+          <div class="code">H-09</div>
+          <p class="name">El empleo del tiempo</p>
+          <div class="meta">Capítulo 3 · ensayo individual · 10 min<br>Abrir ficha →</div>
+        </a>
       </div>
 
       <div class="pie">
         <span>Serie H · Sociología</span>
-        <span>H-07 · H-08</span>
+        <span>H-07 · H-08 · H-09</span>
       </div>
     </div>
   </div>
