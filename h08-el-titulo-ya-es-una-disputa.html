@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<title>H-08 · El título ya es una disputa</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: #6f6f6f;
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .hoja {
+    width: 297mm; height: 210mm;
+    background: #fff;
+    margin: 0 auto 6mm;
+    padding: 10mm 14mm 9mm 20mm;
+    position: relative;
+    overflow: hidden;
+  }
+  .hoja.verso { padding: 10mm 20mm 9mm 14mm; }
+
+  .cabezal {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 0.7mm solid #000;
+    padding-bottom: 1.3mm; margin-bottom: 1.1mm;
+  }
+  .sigla {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 19pt; font-weight: 700; letter-spacing: 0.06em; line-height: 1;
+  }
+  .ubic {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.5pt; letter-spacing: 0.12em; text-transform: uppercase;
+    text-align: right; line-height: 1.45;
+  }
+
+  .subcabezal {
+    display: flex; justify-content: space-between; gap: 8mm;
+    border-bottom: 0.25mm solid #000;
+    padding-bottom: 2mm; margin-bottom: 2.8mm;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.2pt; letter-spacing: 0.06em;
+  }
+  .campo { flex: 1 1 auto; }
+  .campo span { border-bottom: 0.25mm dotted #000; display: inline-block; min-width: 55mm; }
+
+  .titulo {
+    font-size: 19.5pt; font-weight: normal; line-height: 1.08;
+    margin: 0 0 1.2mm; letter-spacing: -0.015em;
+  }
+  .bajada {
+    font-style: italic; font-size: 9.4pt; line-height: 1.35;
+    margin: 0 0 3mm; padding-bottom: 2.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  .cols {
+    display: flex; align-items: stretch; gap: 0;
+    min-height: 148mm;
+  }
+  .hoja.p1 .cols { min-height: 128mm; }
+  .col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex; flex-direction: column;
+  }
+  .col.izq { padding-right: 5.2mm; border-right: 0.25mm solid #000; }
+  .col.der { padding-left: 5.2mm; }
+
+  h2 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 8.2pt; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; margin: 0 0 2.8mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  p {
+    font-size: 9.6pt; line-height: 1.58;
+    margin: 0 0 3.4mm; text-align: justify; hyphens: auto;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  .lead-time {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase;
+    margin: 0 0 3.2mm; line-height: 1.3;
+  }
+
+  .caja {
+    border: 0.35mm solid #000;
+    padding: 3.2mm 3mm 3.4mm;
+    margin: 0 0 3.4mm;
+  }
+  .caja:last-child { margin-bottom: 0; }
+  .caja .ctit {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.9pt; font-weight: 700; letter-spacing: 0.04em;
+    display: block; margin-bottom: 1.6mm;
+    padding-bottom: 1.3mm;
+    border-bottom: 0.25mm solid #000;
+  }
+  .caja p {
+    font-size: 8.85pt; line-height: 1.5; margin: 0;
+    text-align: justify;
+  }
+
+  .fill { flex: 1 1 auto; }
+
+  .nota-ed {
+    font-size: 7.2pt; line-height: 1.45;
+    margin: 4.5mm 0 0;
+    padding-top: 2.6mm;
+    border-top: 0.25mm solid #000;
+    text-align: justify;
+  }
+  .nota-ed b {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .pie {
+    position: absolute;
+    left: 20mm; right: 14mm; bottom: 5mm;
+    display: flex; justify-content: space-between;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.4pt; letter-spacing: 0.08em;
+    border-top: 0.25mm solid #000;
+    padding-top: 1.3mm;
+  }
+  .verso .pie { left: 14mm; right: 20mm; }
+
+  .cuerpo { padding-bottom: 7.5mm; }
+
+  .sep-bloque { margin-top: 4.5mm; }
+
+  /* p1 */
+  .hoja.p1 .caja { padding: 3.5mm 3.1mm 3.7mm; margin: 0 0 3.4mm; }
+  .hoja.p1 .caja p { font-size: 9pt; line-height: 1.5; }
+  .hoja.p1 p { font-size: 9.55pt; line-height: 1.55; margin: 0 0 3.1mm; }
+  .hoja.p1 .sep-bloque { margin-top: 3.5mm; }
+
+  /* p2 verso — palabras + inicio trampas */
+  .hoja.verso .cols { min-height: 162mm; }
+  .hoja.verso .caja { padding: 4mm 3.2mm 4.2mm; margin: 0 0 3.8mm; }
+  .hoja.verso .caja p { font-size: 9.1pt; line-height: 1.52; }
+  .hoja.verso p { font-size: 9.65pt; line-height: 1.58; margin: 0 0 3.5mm; }
+  .hoja.verso .sep-bloque { margin-top: 4mm; }
+
+  /* p3 — trampas restantes + estado */
+  .hoja.p3 .cols { min-height: 165mm; }
+  .hoja.p3 .caja { padding: 9mm 3.8mm 9.5mm; margin: 0 0 7mm; }
+  .hoja.p3 .caja p { font-size: 9.5pt; line-height: 1.62; }
+  .hoja.p3 .caja .ctit { font-size: 8.2pt; margin-bottom: 2.4mm; padding-bottom: 1.8mm; }
+  .hoja.p3 p { font-size: 10pt; line-height: 1.72; margin: 0 0 5.2mm; }
+  .hoja.p3 .nota-ed { margin-top: 7mm; font-size: 7.3pt; line-height: 1.52; }
+  .hoja.p3 h2 { margin-bottom: 4.2mm; padding-bottom: 2.2mm; }
+
+  em, i { font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ===================== PÁGINA 1 ===================== -->
+<section class="hoja p1">
+  <div class="cabezal">
+    <div class="sigla">H-08</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+  <div class="subcabezal">
+    <div class="campo">Nombre <span>&nbsp;</span></div>
+    <div class="campo" style="flex:0 0 42mm; text-align:right;">Fecha <span style="min-width:28mm;">&nbsp;</span></div>
+  </div>
+  <h1 class="titulo">El título ya es una disputa</h1>
+  <p class="bajada">Lectura para el ensayo individual · Capítulo 3 · Sociología, 5º año.</p>
+
+  <div class="cuerpo">
+    <div class="cols">
+      <div class="col izq">
+        <p class="lead-time">Tiempo estimado de lectura: 10 minutos</p>
+        <h2>Tres tapas del mismo libro</h2>
+        <p>Poné tres ediciones sobre la mesa.</p>
+        <div class="caja">
+          <span class="ctit">Francés · Gallimard, 1975</span>
+          <p><i>Surveiller et punir. Naissance de la prison</i>.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Castellano · Siglo XXI, 1976</span>
+          <p>Traducción de Aurelio Garzón del Camino, primera edición mexicana: <i>Vigilar y castigar. Nacimiento de la prisión</i>.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Inglés · Sheridan, 1977</span>
+          <p>Traducción de Alan Sheridan: <i>Discipline and Punish. The Birth of the Prison</i>.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Alemán · Seitter, 1977</span>
+          <p>Traducción de Walter Seitter, con un cuarto verbo: <i>Überwachen und Strafen</i>.</p>
+        </div>
+      </div>
+      <div class="col der">
+        <p>Adentro, el mismo libro: cuatro partes, el mismo orden, las mismas láminas. Afuera, en la tapa, tres verbos distintos para nombrar lo que hace el poder moderno. Y el mismo año en que sale la inglesa aparece la alemana, traducida por Walter Seitter, con un cuarto verbo: <i>Überwachen und Strafen</i>.</p>
+        <p>Antes de leer una línea del libro, la tapa ya tomó una decisión sobre qué trata.</p>
+        <h2 class="sep-bloque">La nota que el traductor puso antes del texto</h2>
+        <p>La edición inglesa se abre con una nota del traductor que explica por qué el título no es literal. Vale leerla como documento: Sheridan deja escritas las razones de una decisión que casi nunca se documenta.</p>
+        <p>Sus argumentos, resumidos, son cuatro.</p>
+        <p>Primero, la forma verbal. Foucault usa el infinitivo, y en francés un infinitivo puede funcionar como lo que Sheridan llama un «impersonal imperative»: una orden sin nadie que la dé. El inglés no consigue ese efecto con esa forma.</p>
+        <p>Segundo, el verbo <i>surveiller</i> no tiene equivalente cómodo en inglés. El sustantivo <i>surveillance</i> existe, con un uso demasiado técnico y estrecho.</p>
+        <p>Tercero, la palabra que usaba Bentham para el panóptico era <i>inspect</i>, que Foucault traduce al francés como <i>surveiller</i>. Las connotaciones no coinciden en el camino de vuelta.</p>
+        <p>Cuarto, <i>supervise</i> se acerca bastante y arrastra otras asociaciones; <i>observe</i> queda demasiado neutro para un libro que trabaja sobre la agresión que hay en toda mirada de un solo lado.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-08 · pág. 1 de 3</span>
+    <span>El título ya es una disputa</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 2 ===================== -->
+<section class="hoja verso">
+  <div class="cabezal">
+    <div class="sigla">H-08</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 2mm;">
+    <div class="cols">
+      <div class="col izq">
+        <p>El cierre de la nota es el dato más útil para el ensayo: el título inglés lo propuso Foucault, y lo propuso porque se relaciona de cerca con la estructura del libro. La decisión no fue un desliz del traductor.</p>
+        <h2 class="sep-bloque">Qué carga cada palabra</h2>
+        <div class="caja">
+          <span class="ctit">surveiller</span>
+          <p>Se arma con <i>sur-</i> y <i>veiller</i>. <i>Veiller</i> viene del latín <i>vigilare</i>, quedarse despierto. El prefijo agrega la posición: mirar desde arriba, por encima de alguien. En las escuelas francesas, el que hace ese trabajo se llama <i>surveillant</i>, que es aproximadamente el preceptor de acá. La palabra tiene además una historia política: en 1793, la Revolución organizó comités de vigilancia en cada municipio. Un lector francés de 1975 abre el libro con la escuela y la Revolución ya adentro de la primera palabra del título.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">vigilar</span>
+          <p>Viene del mismo latín <i>vigilare</i>, por vía culta. Perdió en el camino el prefijo que marcaba la altura: en castellano se vigila, sin que la palabra diga desde dónde. A cambio, el castellano conserva algo que el inglés declara imposible. «Vigilar y castigar» se lee como se lee un cartel: «No pisar el césped», «Tocar timbre». El infinitivo impersonal que Sheridan da por perdido está intacto en la tapa que el curso tiene en la mano. Segunda decisión visible: el francés dice <i>punir</i>, y el castellano tiene «punir», palabra rara y de tono jurídico. El traductor eligió la palabra de todos los días, «castigar», que además es la que nombra la segunda parte del libro en el índice: Suplicio, Castigo, Disciplina, Prisión.</p>
+        </div>
+      </div>
+      <div class="col der">
+        <div class="caja">
+          <span class="ctit">discipline</span>
+          <p>El título inglés toma prestada la palabra que nombra la tercera parte del libro y la asciende a nombre del todo. El foco se corre: de la operación que alguien realiza (mirar) al resultado que esa operación deja en los cuerpos (el cuerpo adiestrado). El alemán fue por el otro camino y eligió <i>überwachen</i>, vigilar, custodiar. Dos traducciones publicadas el mismo año, 1977, con criterios opuestos: prueba de que la elección inglesa no venía impuesta por los límites de la lengua.</p>
+        </div>
+        <h2 class="sep-bloque">Dónde el análisis del título deja de explicar</h2>
+        <p>Este eje tiene una trampa cómoda, y conviene verla de entrada.</p>
+        <div class="caja">
+          <span class="ctit">Un título no decide lo que el libro dice</span>
+          <p>Las cuatro partes son las mismas en las cuatro ediciones. El examen, el panóptico y Mettray están en todas. Un ensayo que solo compara tapas termina haciendo lexicografía, y la materia pide sociología.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La hipótesis de la recepción necesita pruebas</span>
+          <p>Es tentador escribir que la academia de habla inglesa se concentró en la disciplina por culpa de la tapa, o que los <i>surveillance studies</i> nacieron para reparar el verbo que se perdió. Ninguna investigación demuestra esa conexión causal. Se puede formular como hipótesis, con el rótulo puesto. Presentarla como hecho sería inventar evidencia.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-08 · pág. 2 de 3</span>
+    <span>El título ya es una disputa</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 3 ===================== -->
+<section class="hoja p3">
+  <div class="cabezal">
+    <div class="sigla">H-08</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 2mm;">
+    <div class="cols">
+      <div class="col izq">
+        <div class="caja">
+          <span class="ctit">La historia del traductor infiel no se comprueba</span>
+          <p>Foucault propuso el título inglés. Cualquier argumento construido sobre la traición del traductor choca con ese dato, que está impreso en la misma nota.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">El cuerpo del texto tiene sus propios problemas</span>
+          <p>La discusión sobre esta traducción excede al título: incluye el tratamiento de <i>supplice</i> en la primera parte y una lista de errores señalados por los lectores tempranos de la edición inglesa. El título es la punta visible.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Y hay una mediación más cerca</span>
+          <p>Quien lee en castellano lee a Garzón del Camino, en un español de España de 1976. Cada cita que entre al ensayo viene con esa capa encima, y conviene decirlo una vez, con la edición a la vista.</p>
+        </div>
+      </div>
+      <div class="col der">
+        <h2>El estado de la discusión</h2>
+        <p>En 2014, Stuart Elden planteó que <i>Surveiller et punir</i> admite una versión inglesa más cercana, del orden de <i>Survey and Punish</i>, y argumentó a favor de una traducción nueva, cuarenta años después de la primera.</p>
+        <p>En 2022, Melissa Pawelski defendió en la Universidad de Warwick una tesis doctoral que compara sistemáticamente la traducción inglesa de Sheridan y la alemana de Seitter con el original francés. Su resultado, según el resumen de la propia tesis, es que las diferencias en los conceptos clave abren lecturas que el francés no autoriza.</p>
+        <p>La discusión sigue abierta y es local también: en septiembre de 2025 se hicieron en Montevideo unas jornadas por los cincuenta años del libro.</p>
+        <p>Un rótulo sobre el tipo de evidencia que maneja este eje. Todo lo anterior es filología y estudios de traducción: se apoya en documentos verificables, que son las ediciones, la nota del traductor y los índices. Ninguno de esos trabajos mide qué entienden los lectores de cada versión. Para eso no hay investigación disponible.</p>
+        <p class="nota-ed"><b>Nota de edición.</b> Francés: Gallimard, 1975, colección «Bibliothèque des histoires», 318 pp. Castellano: Siglo XXI, traducción de Aurelio Garzón del Camino, primera edición mexicana de 1976, segunda edición revisada y corregida de 1984; las reimpresiones argentinas usan esa misma traducción y la paginación cambia entre tiradas (314 pp. en la edición de la Biblioteca clásica, 359 en otras reimpresiones). Verificar contra el ejemplar de aula. Inglés: traducción de Alan Sheridan (1934-2015), Pantheon Books y Allen Lane, 1977. Alemán: traducción de Walter Seitter, <i>Überwachen und Strafen. Die Geburt des Gefängnisses</i>, 1977.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-08 · pág. 3 de 3</span>
+    <span>El título ya es una disputa</span>
+  </div>
+</section>
+
+</body>
+</html>

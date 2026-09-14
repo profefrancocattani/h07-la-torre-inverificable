@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<title>H-07 · La torre inverificable</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: #6f6f6f;
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .hoja {
+    width: 297mm; height: 210mm;
+    background: #fff;
+    margin: 0 auto 6mm;
+    padding: 10mm 14mm 9mm 20mm;
+    position: relative;
+    overflow: hidden;
+  }
+  .hoja.verso { padding: 10mm 20mm 9mm 14mm; }
+
+  .cabezal {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 0.7mm solid #000;
+    padding-bottom: 1.3mm; margin-bottom: 1.1mm;
+  }
+  .sigla {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 19pt; font-weight: 700; letter-spacing: 0.06em; line-height: 1;
+  }
+  .ubic {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.5pt; letter-spacing: 0.12em; text-transform: uppercase;
+    text-align: right; line-height: 1.45;
+  }
+
+  .subcabezal {
+    display: flex; justify-content: space-between; gap: 8mm;
+    border-bottom: 0.25mm solid #000;
+    padding-bottom: 2mm; margin-bottom: 2.8mm;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.2pt; letter-spacing: 0.06em;
+  }
+  .campo { flex: 1 1 auto; }
+  .campo span { border-bottom: 0.25mm dotted #000; display: inline-block; min-width: 55mm; }
+
+  .titulo {
+    font-size: 19.5pt; font-weight: normal; line-height: 1.08;
+    margin: 0 0 1.2mm; letter-spacing: -0.015em;
+  }
+  .bajada {
+    font-style: italic; font-size: 9.4pt; line-height: 1.35;
+    margin: 0 0 3mm; padding-bottom: 2.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  .cols {
+    display: flex; align-items: stretch; gap: 0;
+    min-height: 148mm;
+  }
+  .hoja.p1 .cols { min-height: 128mm; }
+  .col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex; flex-direction: column;
+  }
+  .col.izq { padding-right: 5.2mm; border-right: 0.25mm solid #000; }
+  .col.der { padding-left: 5.2mm; }
+
+  h2 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 8.2pt; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; margin: 0 0 2.8mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  p {
+    font-size: 9.6pt; line-height: 1.58;
+    margin: 0 0 3.4mm; text-align: justify; hyphens: auto;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  .lead-time {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase;
+    margin: 0 0 3.2mm; line-height: 1.3;
+  }
+
+  .caja {
+    border: 0.35mm solid #000;
+    padding: 3.2mm 3mm 3.4mm;
+    margin: 0 0 3.4mm;
+  }
+  .caja:last-child { margin-bottom: 0; }
+  .caja .ctit {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.9pt; font-weight: 700; letter-spacing: 0.04em;
+    display: block; margin-bottom: 1.6mm;
+    padding-bottom: 1.3mm;
+    border-bottom: 0.25mm solid #000;
+  }
+  .caja p {
+    font-size: 8.85pt; line-height: 1.5; margin: 0;
+    text-align: justify;
+  }
+
+  .fill { flex: 1 1 auto; }
+
+  .nota-ed {
+    font-size: 7.2pt; line-height: 1.45;
+    margin: 4.5mm 0 0;
+    padding-top: 2.6mm;
+    border-top: 0.25mm solid #000;
+    text-align: justify;
+  }
+  .nota-ed b {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .pie {
+    position: absolute;
+    left: 20mm; right: 14mm; bottom: 5mm;
+    display: flex; justify-content: space-between;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.4pt; letter-spacing: 0.08em;
+    border-top: 0.25mm solid #000;
+    padding-top: 1.3mm;
+  }
+  .verso .pie { left: 14mm; right: 20mm; }
+
+  .cuerpo { padding-bottom: 7.5mm; }
+
+  .sep-bloque { margin-top: 4.5mm; }
+
+
+  .hoja.p3 .cols { min-height: 158mm; }
+  .hoja.p3 .caja { padding: 4mm 3.2mm 4.2mm; margin: 0 0 4.2mm; }
+  .hoja.p3 .caja p { font-size: 9pt; line-height: 1.55; }
+  .hoja.p3 p { font-size: 9.7pt; line-height: 1.62; margin: 0 0 3.8mm; }
+  .hoja.p3 .nota-ed { margin-top: 5.5mm; font-size: 7.3pt; line-height: 1.5; }
+  .hoja.p3 .sep-bloque { margin-top: 5mm; }
+  em, i { font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ===================== PÁGINA 1 ===================== -->
+<section class="hoja p1">
+  <div class="cabezal">
+    <div class="sigla">H-07</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+  <div class="subcabezal">
+    <div class="campo">Nombre <span>&nbsp;</span></div>
+    <div class="campo" style="flex:0 0 42mm; text-align:right;">Fecha <span style="min-width:28mm;">&nbsp;</span></div>
+  </div>
+  <h1 class="titulo">La torre inverificable</h1>
+  <p class="bajada">Lectura para el ensayo individual · Capítulo 3 · Sociología, 5º año.</p>
+
+  <div class="cuerpo">
+    <div class="cols">
+      <div class="col izq">
+        <p class="lead-time">Tiempo estimado de lectura: 10 minutos</p>
+        <h2>Un edificio que casi no se construyó</h2>
+        <p>Krichev, en la Rusia Blanca que hoy es Bielorrusia. Año 1787. Jeremy Bentham está pasando una temporada larga en casa de su hermano Samuel, ingeniero al servicio del príncipe Potemkin. Samuel administra talleres con muchos obreros sin oficio y con muy pocos capataces para controlarlos. La solución que inventa es de arquitectura: un edificio circular con un punto central desde donde unas pocas personas alcanzan a ver a muchas.</p>
+        <p>Jeremy se entusiasma y escribe veintiuna cartas a Inglaterra desarrollando la idea, aplicada ahora a la cárcel. Esas cartas se publican en 1791 con un título larguísimo: <i>Panopticon; or, The Inspection-House</i>. El subtítulo enumera los establecimientos donde el principio serviría: casas penitenciarias, prisiones, casas de industria, talleres, asilos de pobres, manufacturas, casas de locos, hospitales y escuelas.</p>
+        <p>La escuela está en la lista desde 1791.</p>
+        <p>El plano es simple. Un anillo de celdas. Una torre en el centro. La luz entra por la pared exterior de cada celda, así que el cuerpo del preso queda recortado a contraluz y se ve entero desde la torre. Adentro de la torre, en cambio, hay persianas, tabiques y pasillos en zigzag. Desde la celda no se distingue quién está ahí arriba. Ni siquiera se distingue si hay alguien.</p>
+        <p>Bentham peleó veinte años para que el edificio se levantara en Inglaterra y nunca lo vio construido. Su hermano llegó a poner los cimientos de uno en Rusia, en 1806. Los planos que hoy se reproducen en todos los manuales los dibujó un arquitecto, Willey Reveley, en 1791: una torta cortada en porciones, con una aguja en el medio.</p>
+      </div>
+      <div class="col der">
+        <h2>Lo que Foucault le saca al plano</h2>
+        <p>En <i>Vigilar y castigar</i> (Gallimard, 1975; Siglo XXI, traducción de Aurelio Garzón del Camino, 1976), Foucault lee ese plano y le saca una pieza que funciona sin ladrillos.</p>
+        <p>La pieza es la siguiente. En la vida corriente, ver y ser visto van juntos: si vos me ves la cara, yo te veo la tuya. El anillo y la torre separan ese par. Quien está en la celda queda visto sin ver. Quien está en la torre ve sin quedar visto.</p>
+        <p>De esa separación sale la fórmula que le da nombre al eje. El poder queda «visible e inverificable». Visible: la torre está ahí, en el medio, imposible de ignorar. Inverificable: lo que pasa adentro de la torre no se puede comprobar desde afuera.</p>
+        <p>El diagnóstico de Foucault, y conviene marcarlo como diagnóstico del autor, es que ahí el trabajo cambia de manos. La persona vigilada empieza a comportarse como si la estuvieran mirando siempre, porque le sale más barato que averiguar cada vez. Y en ese momento el guardia puede irse a tomar un café: la torre vacía produce el mismo efecto que la torre ocupada, mientras nadie pueda confirmar cuál de las dos es. Un mecanismo que ahorra guardias, gritos y castigos.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-07 · pág. 1 de 3</span>
+    <span>La torre inverificable</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 2 ===================== -->
+<section class="hoja verso">
+  <div class="cabezal">
+    <div class="sigla">H-07</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 2mm;">
+    <div class="cols">
+      <div class="col izq">
+        <h2>Las cuatro piezas del mecanismo</h2>
+        <div class="caja">
+          <span class="ctit">Asimetría</span>
+          <p>Una posición ve, la otra queda vista. La reparte el diseño del lugar, no la voluntad de quien lo ocupa. El preceptor nuevo hereda la misma ventana que el anterior.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Incertidumbre</span>
+          <p>La mirada puede estar ocurriendo o no, y no hay manera de chequearlo desde donde uno está parado.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Separación</span>
+          <p>El anillo de celdas mantiene a cada preso aparte de los demás, contado y ubicable. Sin esa separación, la torre pierde buena parte del efecto: un grupo que se ve entre sí puede avisarse.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Economía</span>
+          <p>El resultado se consigue con poco personal y sin tocar a nadie. Es el argumento con el que Bentham vendía el proyecto a los ingleses, y figura escrito en sus cartas como ahorro.</p>
+        </div>
+      </div>
+      <div class="col der">
+        <h2>Cómo se ve esto en lugares conocidos</h2>
+        <p>La preceptoría con vidrio al pasillo tiene las cuatro piezas casi completas. Desde el pasillo se ve el vidrio; desde el pasillo no se ve si alguien está mirando hacia afuera o hacia la computadora. El efecto se produce igual en los dos casos.</p>
+        <p>El visor de la puerta del aula —esa ventanita a la altura de la cara— agrega algo más: convierte el pasillo entero en una torre móvil. Cualquiera que pase puede mirar un segundo. Nadie adentro sabe cuándo.</p>
+        <p>La aplicación de reparto que se trabajó en el capítulo 2 tiene una versión sin edificio. El repartidor aparece como un punto que se mueve sobre un mapa. El punto se ve desde la oficina; la oficina no se ve desde la moto. Quien reparte no tiene modo de saber si en ese momento alguien está mirando su punto, y maneja como si lo estuvieran mirando.</p>
+        <h2 class="sep-bloque">Dónde el concepto deja de explicar el lugar</h2>
+        <p>Acá empieza la parte difícil del ensayo, que es también la que la rúbrica premia en el nivel 4. El panóptico ilumina una parte de cualquier lugar y deja otra parte a oscuras. Algunas zonas oscuras frecuentes:</p>
+        <div class="caja">
+          <span class="ctit">La cámara que graba</span>
+          <p>Si hay grabación, la mirada se puede comprobar después. Eso corre el mecanismo hacia otro lado: aparece un archivo, un legajo, una imagen guardada con fecha. La incertidumbre de Bentham era sobre el presente. Un archivo es una pregunta sobre el futuro.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">El cartel que avisa</span>
+          <p>«Sonría, está siendo filmado» funciona al revés que la torre: el efecto se busca en que la gente se entere. Ahí lo que produce el resultado es el anuncio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-07 · pág. 2 de 3</span>
+    <span>La torre inverificable</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 3 ===================== -->
+<section class="hoja p3">
+  <div class="cabezal">
+    <div class="sigla">H-07</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 2mm;">
+    <div class="cols">
+      <div class="col izq">
+        <div class="caja">
+          <span class="ctit">La mirada entre pares</span>
+          <p>En un grupo de mensajes, en las historias que duran un día, en el celular del compañero de banco, la asimetría se disuelve: todos ven y todos quedan vistos. No hay torre, o hay tantas torres como personas. El concepto de Foucault se estira mal en esa situación; describirla suele salir mejor con capital, habitus o violencia simbólica, que son las herramientas del otro autor del capítulo.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La puerta con llave</span>
+          <p>Un lugar ordenado por una llave, un horario, un torniquete o un precio de entrada no necesita ninguna mirada para funcionar. Vale describirlo así, con lo que hay.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La multitud</span>
+          <p>Una cancha, un recital, un colectivo lleno. Hay mirada, hay control, y la separación que pide el anillo no existe: la gente está amontonada y es intercambiable. El mecanismo funciona a medias, y el ensayo gana cuando se dice en qué mitad.</p>
+        </div>
+        <h2 class="sep-bloque">Lo que discute la bibliografía</h2>
+        <p>La tesis de Foucault sobre el paso del suplicio a la disciplina tiene objeciones de historiadores. Spierenburg, Ignatieff y Garland muestran que el espectáculo del castigo ya venía retrocediendo desde el siglo XVII, o sea antes de la fecha que arma el relato del libro. Garland recoge además una acusación dura: <i>cafeteria history</i>, elegir del archivo solo las fuentes que le vienen bien a la tesis. Esos mismos críticos reconocen que el libro empujó como ningún otro los estudios sobre la prisión.</p>
+      </div>
+      <div class="col der">
+        <p>Una segunda objeción es sobre el uso del concepto. Philipp Sarasin y otros señalaron la inflación de estos términos: cuando «panóptico» nombra cualquier cámara y cualquier control, deja de distinguir una cosa de otra, y una palabra que nombra todo explica poco.</p>
+        <p>Y hay una tercera corrección, firmada por el propio autor. En «El sujeto y el poder» (1982) Foucault reorienta el foco: el tema pasa a ser el sujeto, la resistencia forma parte de la relación de poder, y la libertad aparece como condición para que esa relación exista. El panóptico cerrado de 1975 queda matizado por su propia mano siete años después.</p>
+        <p>Conviene una etiqueta final sobre el estado del conocimiento. La bibliografía reciente que aplica a Foucault a plataformas, algoritmos y datos personales es mayormente teórica: usa al autor como lente para mirar, y no mide efectos. Citarla como si fuera evidencia empírica sería un error de categoría.</p>
+        <p class="nota-ed"><b>Nota de edición.</b> El capítulo «El panoptismo» está en la página 199 de la edición argentina de Siglo XXI (314 pp.); otras ediciones difieren, verificar contra el ejemplar de aula. Los datos sobre Bentham provienen de la edición de 1791 de <i>Panopticon; or, The Inspection-House</i> (Dublín, Thomas Byrne) y del trabajo de Catherine Pease-Watkin en el <i>Journal of Bentham Studies</i>, vol. 6 (2003), del Bentham Project de University College London.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-07 · pág. 3 de 3</span>
+    <span>La torre inverificable</span>
+  </div>
+</section>
+
+</body>
+</html>
