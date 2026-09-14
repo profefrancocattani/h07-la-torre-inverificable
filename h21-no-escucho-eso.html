@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>H-21 · No escucho eso</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: #6f6f6f;
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .hoja {
+    width: 297mm; height: 210mm;
+    background: #fff;
+    margin: 0 auto 6mm;
+    padding: 10mm 14mm 9mm 20mm;
+    position: relative;
+    overflow: hidden;
+  }
+  .hoja.verso { padding: 10mm 20mm 9mm 14mm; }
+
+  .cabezal {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 0.7mm solid #000;
+    padding-bottom: 1.3mm; margin-bottom: 1.1mm;
+  }
+  .sigla {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 19pt; font-weight: 700; letter-spacing: 0.06em; line-height: 1;
+  }
+  .ubic {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.5pt; letter-spacing: 0.12em; text-transform: uppercase;
+    text-align: right; line-height: 1.45;
+  }
+
+  .subcabezal {
+    display: flex; justify-content: space-between; gap: 8mm;
+    border-bottom: 0.25mm solid #000;
+    padding-bottom: 2mm; margin-bottom: 2.8mm;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.2pt; letter-spacing: 0.06em;
+  }
+  .campo { flex: 1 1 auto; }
+  .campo span { border-bottom: 0.25mm dotted #000; display: inline-block; min-width: 55mm; }
+
+  .titulo {
+    font-size: 19.5pt; font-weight: normal; line-height: 1.08;
+    margin: 0 0 1.2mm; letter-spacing: -0.015em;
+  }
+  .bajada {
+    font-style: italic; font-size: 9.4pt; line-height: 1.35;
+    margin: 0 0 3mm; padding-bottom: 2.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  .cols {
+    display: flex; align-items: stretch; gap: 0;
+    min-height: 148mm;
+  }
+  .hoja.p1 .cols { min-height: 128mm; }
+  .col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex; flex-direction: column;
+  }
+  .col.izq { padding-right: 5.2mm; border-right: 0.25mm solid #000; }
+  .col.der { padding-left: 5.2mm; }
+
+  h2 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 8.2pt; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; margin: 0 0 2.8mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  p {
+    font-size: 9.6pt; line-height: 1.58;
+    margin: 0 0 3.4mm; text-align: justify; hyphens: auto;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  .lead-time {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase;
+    margin: 0 0 3.2mm; line-height: 1.3;
+  }
+
+  .caja {
+    border: 0.35mm solid #000;
+    padding: 3.2mm 3mm 3.4mm;
+    margin: 0 0 3.4mm;
+  }
+  .caja:last-child { margin-bottom: 0; }
+  .caja .ctit {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.9pt; font-weight: 700; letter-spacing: 0.04em;
+    display: block; margin-bottom: 1.6mm;
+    padding-bottom: 1.3mm;
+    border-bottom: 0.25mm solid #000;
+  }
+  .caja p {
+    font-size: 8.85pt; line-height: 1.5; margin: 0;
+    text-align: justify;
+  }
+
+  .fill { flex: 1 1 auto; }
+
+  .nota-ed {
+    font-size: 7.2pt; line-height: 1.45;
+    margin: 4.5mm 0 0;
+    padding-top: 2.6mm;
+    border-top: 0.25mm solid #000;
+    text-align: justify;
+  }
+  .nota-ed b {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .pie {
+    position: absolute;
+    left: 20mm; right: 14mm; bottom: 5mm;
+    display: flex; justify-content: space-between;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.4pt; letter-spacing: 0.08em;
+    border-top: 0.25mm solid #000;
+    padding-top: 1.3mm;
+  }
+  .verso .pie { left: 14mm; right: 20mm; }
+
+  .cuerpo { padding-bottom: 7.5mm; }
+
+  .sep-bloque { margin-top: 4.5mm; }
+
+  /* p1 */
+  .hoja.p1 .caja { padding: 3.4mm 3.1mm 3.6mm; margin: 0 0 3.2mm; }
+  .hoja.p1 .caja p { font-size: 8.9pt; line-height: 1.5; }
+  .hoja.p1 p { font-size: 9.9pt; line-height: 1.70; margin: 0 0 4.4mm; }
+  .hoja.p1 .lead-time { margin: 0 0 4.2mm; }
+  .hoja.p1 .sep-bloque { margin-top: 4.2mm; }
+  .hoja.p1 h2 { margin-bottom: 3.2mm; padding-bottom: 1.7mm; }
+
+  /* p2 verso */
+  .hoja.verso .cols { min-height: 162mm; }
+  .hoja.verso .caja { padding: 4.2mm 3.2mm 4.4mm; margin: 0 0 3.8mm; }
+  .hoja.verso .caja p { font-size: 8.95pt; line-height: 1.56; }
+  .hoja.verso .caja .ctit { font-size: 7.9pt; margin-bottom: 1.7mm; padding-bottom: 1.4mm; }
+  .hoja.verso p { font-size: 9.5pt; line-height: 1.66; margin: 0 0 3.8mm; }
+  .hoja.verso .sep-bloque { margin-top: 4.2mm; }
+  .hoja.verso h2 { margin-bottom: 3mm; padding-bottom: 1.6mm; }
+
+  /* p3 */
+  .hoja.p3 .cols { min-height: 156mm; }
+  .hoja.p3 .cuerpo { padding-bottom: 1.5mm; }
+  .hoja.p3 .caja { padding: 2.9mm 3mm 3.1mm; margin: 0 0 2.7mm; }
+  .hoja.p3 .caja p { font-size: 8.85pt; line-height: 1.48; }
+  .hoja.p3 .caja .ctit { font-size: 7.8pt; margin-bottom: 1.4mm; padding-bottom: 1.2mm; }
+  .hoja.p3 p { font-size: 9.3pt; line-height: 1.5; margin: 0 0 2.6mm; }
+  .hoja.p3 .nota-ed { margin-top: 3.4mm; font-size: 6.9pt; line-height: 1.38; }
+  .hoja.p3 h2 { margin-bottom: 2.4mm; padding-bottom: 1.3mm; }
+  .hoja.p3 .sep-bloque { margin-top: 3.6mm; }
+
+  em, i { font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ===================== PÁGINA 1 ===================== -->
+<section class="hoja p1">
+  <div class="cabezal">
+    <div class="sigla">H-21</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+  <div class="subcabezal">
+    <div class="campo">Nombre <span>&nbsp;</span></div>
+    <div class="campo" style="flex:0 0 42mm; text-align:right;">Fecha <span style="min-width:28mm;">&nbsp;</span></div>
+  </div>
+  <h1 class="titulo">No escucho eso</h1>
+  <p class="bajada">Lectura para el ensayo individual · Capítulo 3 · Sociología, 5º año.</p>
+
+  <div class="cuerpo">
+    <div class="cols">
+      <div class="col izq">
+        <p class="lead-time">Tiempo estimado de lectura: 10 minutos</p>
+        <h2>Dieciséis obras y un cuestionario</h2>
+        <p>Francia, mediados de los sesenta. Un equipo dirigido por Pierre Bourdieu sale a preguntar. El trabajo de campo se hace en 1963 y otra vez en 1967-68, sobre una muestra de 1.217 personas, y el cuestionario es largo: pregunta por los muebles de la casa, por la comida que se sirve cuando hay invitados, por el peinado, por qué cosas valdría la pena fotografiar.</p>
+        <p>Entre las preguntas hay una que parece tomada de una prueba escolar. Se enumeran dieciséis obras musicales y se pide decir quién compuso cada una.</p>
+        <p>La pregunta no averigua si a la gente le gusta la música. Averigua quién puede poner un nombre de autor arriba de un título, y esa capacidad se aprende en algún lado.</p>
+        <p>Con las respuestas, el libro arma tres zonas. Arriba, <i>El clave bien temperado</i>, <i>El arte de la fuga</i>, el <i>Concierto para la mano izquierda</i>. En el medio, la <i>Rhapsody in Blue</i> y la <i>Rapsodia húngara</i>. Abajo, <i>El Danubio azul</i>, <i>La Traviata</i>, <i>La danza del sable</i> y las canciones de los cantantes populares de esos años en Francia.</p>
+        <p>El orden de las tres zonas sigue al público que escucha cada una.</p>
+      </div>
+      <div class="col der">
+        <h2>Lo que Bourdieu le saca a las respuestas</h2>
+        <p>En <i>La distinción</i> (Minuit, 1979) Bourdieu lee ese material y saca una pieza que se discute hasta hoy.</p>
+        <p>La pieza es la siguiente. Reconocer una obra pide un aprendizaje, y ese aprendizaje llega antes de que nadie pueda elegirlo: en la casa donde esa música sonaba o no sonaba, en las conversaciones que se escuchaban de chico, en si había un instrumento dando vueltas o no lo había. Para cuando una persona dice «me gusta», el trabajo ya está hecho.</p>
+        <p>De ahí sale la frase de la introducción del libro: «<i>Le goût classe, et classe celui qui classe</i>». El gusto clasifica, y clasifica al que clasifica. El que elige queda descripto por su elección.</p>
+        <p>El diagnóstico de Bourdieu, y conviene marcarlo como diagnóstico del autor, es que una declaración de gusto informa sobre quien la hace. Alguien dice qué escucha y entrega, de paso, un dato sobre su recorrido: qué tuvo cerca, qué le resultó familiar, con qué creció. Por eso el libro trata el gusto como un documento y lo lee igual que se lee una planilla.</p>
+        <p>Conviene una aclaración de vocabulario antes de seguir. «Clase», en este libro, nombra una posición en el espacio social, medida por lo que una persona tiene y por lo que sabe. En la escuela la misma palabra nombra el módulo de ochenta minutos. Las dos acepciones no se tocan.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-21 · pág. 1 de 3</span>
+    <span>No escucho eso</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 2 ===================== -->
+<section class="hoja verso">
+  <div class="cabezal">
+    <div class="sigla">H-21</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 2mm;">
+    <div class="cols">
+      <div class="col izq">
+        <h2>Las cuatro piezas del mecanismo</h2>
+        <div class="caja">
+          <span class="ctit">Disposición</span>
+          <p>El gusto se adquiere antes de poder discutirlo, en la casa y en el barrio, sin que nadie dé una clase. Por eso se siente propio y espontáneo, y esa sensación forma parte del mecanismo: lo aprendido se vuelve invisible para el que lo aprendió.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Diferencia</span>
+          <p>Lo que marca una posición es la distancia respecto de los demás consumos disponibles. Escuchar tango en 1955 y escucharlo hoy ubica a una persona en lugares distintos, con el mismo disco puesto. El mapa se mueve, y el mismo consumo cambia de valor.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Rechazo</span>
+          <p>En la página 60 de la edición francesa está la formulación más citada del libro: los gustos son «<i>sans doute avant tout des dégoûts</i>», hechos de horror o de intolerancia visceral hacia los gustos de los otros. Bourdieu agrega en el mismo lugar que la aversión por los estilos de vida diferentes funciona como una de las barreras más firmes entre las clases.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Legitimidad</span>
+          <p>Algunas jerarquías están respaldadas por instituciones que las declaran: el conservatorio, la crítica, el programa de la materia. Que una música entre a un plan de estudios o a un teatro oficial le agrega un valor que no depende de cuánta gente la escuche.</p>
+        </div>
+      </div>
+      <div class="col der">
+        <div class="caja">
+          <span class="ctit">Precisión · Lo que dice «sans doute»</span>
+          <p>La expresión francesa se parece a «sin duda» y se usa para decir «probablemente». Para afirmar sin reservas, el francés escribe «<i>sans aucun doute</i>». La frase más citada del libro viene modalizada en el original, y varias citas la endurecen en el camino. Vale leerla como lo que es: una conjetura fuerte del autor, del mismo modo en que el capítulo viene tratando las otras.</p>
+        </div>
+        <h2 class="sep-bloque">Cómo se ve esto en el curso</h2>
+        <p>El parlante del aula es el documento más directo. Cuando se permite poner música mientras se trabaja, alguien agarra el cable. Ese lugar se ocupa de determinada manera y conviene mirar cómo: quién propone, qué entra sin discusión, qué se baja a los treinta segundos y con qué frase se lo baja.</p>
+        <p>La lista del viaje y la música del acto escolar son dos documentos más, de naturaleza distinta. Una la arma el curso; la otra la aprueba la escuela.</p>
+        <p>Está también el resumen que las plataformas devuelven en diciembre y que muchos publican. Ahí el usuario decide qué mostrar, y esa decisión forma parte del dato.</p>
+        <p>Las fórmulas de rechazo son el material más rico y el más fácil de anotar: «no escucho eso», «eso lo escucha cualquiera», «eso es para más chicos». Cada una ubica al que la dice.</p>
+        <div class="caja">
+          <span class="ctit">Cuidado de trabajo</span>
+          <p>El ensayo describe clasificaciones, sin clasificar a los compañeros. Sin encuestas con nombre, sin listas de quién escucha qué, sin rankings del curso, ni siquiera como ejemplo. El objeto son las frases, las jerarquías declaradas y los documentos públicos. Las personas no entran como casos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-21 · pág. 2 de 3</span>
+    <span>No escucho eso</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 3 ===================== -->
+<section class="hoja p3">
+  <div class="cabezal">
+    <div class="sigla">H-21</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 2mm;">
+    <div class="cols">
+      <div class="col izq">
+        <h2>Dónde el gusto deja de explicar la posición</h2>
+        <div class="caja">
+          <span class="ctit">El que escucha de todo</span>
+          <p>En 1996, Richard Peterson y Roger Kern compararon dos encuestas estadounidenses de 1982 y 1992 y encontraron que los sectores de mayor nivel declaraban gustar de más géneros populares en la segunda. La marca se corrió de la exclusividad hacia la amplitud: queda mejor escuchar de todo que escuchar solamente lo consagrado.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La tolerancia con borde</span>
+          <p>En el mismo número de la misma revista, Bethany Bryson trabajó datos de 1993 y encontró un patrón más fino: a mayor nivel educativo, menos géneros rechazados, salvo unos pocos que se siguen rechazando. Esos pocos tenían los públicos de menor nivel educativo. La tolerancia llegaba justo hasta ahí.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">El catálogo es el mismo</span>
+          <p>Comprar un disco en 1979 costaba dinero y pedía una disquería cerca. Hoy el mismo catálogo entra por el mismo teléfono. Cuando el acceso deja de filtrar, la distinción se corre a otro lado: el dato que se sabe, el vivo al que se fue, la jerarquía interna del género. Analizar eso con el libro de 1979 en la mano exige ajustar, y decir en el ensayo qué se ajustó.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La música que fija el reglamento</span>
+          <p>La música del acto del 25 de mayo la fija un criterio institucional escrito en algún lado. Para describir esa escena funcionan mejor las herramientas del otro autor del capítulo, que es donde empezó toda la unidad.</p>
+        </div>
+        <h2 class="sep-bloque">El estado de la discusión</h2>
+        <p>Los dos artículos de 1996 salieron uno atrás del otro, en el mismo número de <i>American Sociological Review</i>: Bryson en las páginas 884 a 899, Peterson y Kern en las 900 a 907. Desde entonces se discute si el que escucha de todo desplazó a la distinción o si es su versión nueva.</p>
+      </div>
+      <div class="col der">
+        <p>Hay una vuelta de tuerca. En 2016, Omar Lizardo y Sara Skiles repitieron el análisis de Bryson con datos de 2012 y encontraron el patrón invertido: los más educados aparecían con más rechazos. La conclusión sirve para todo el capítulo, porque el hallazgo de 1996 describía un momento y no una ley.</p>
+        <p>Dos comparaciones más. Chan y Goldthorpe encontraron en 2007 que en Inglaterra el consumo musical se asocia al estatus y a la educación más que a la clase ocupacional. Y Lamont mostró en 1992, con 160 entrevistas, que el modelo francés no se traslada entero a Estados Unidos.</p>
+        <p>El caso local pide todavía más cuidado. La Encuesta Nacional de Consumos Culturales relevó 3.380 casos en 2022-2023: el 96 % escuchó música y el 80 % lo hizo por internet. Entre los géneros, cumbia y reggaetón encabezan con 62 %, rock nacional 59 %, folclore argentino 48 %. En 2013 encabezaba la música romántica.</p>
+        <p>Acá va el rótulo principal. Esa encuesta no publica el cruce entre género escuchado y nivel educativo: los porcentajes son totales de población. Escribir «según la encuesta, los de mayor nivel educativo escuchan tal cosa» le atribuye al organismo un dato que no publicó. Los microdatos sí son públicos y traen las dos variables, así que el cruce se puede calcular; el ensayo que lo haga tiene que decir que el cálculo es propio.</p>
+        <p>Un antecedente local: en julio de 2001 el COMFER emitió pautas de evaluación de contenidos dirigidas a la cumbia villera, con supuestos de infracción y un glosario del léxico. El Estado tomando un género como objeto de regulación, con fecha y documento.</p>
+        <p>Último rótulo. Lo disponible son encuestas que miden gustos declarados, casi todas en Estados Unidos y Europa. Ninguna prueba que la posición produzca el gusto: miden que las dos cosas aparecen juntas. Y ninguna registra lo que se escucha de verdad, porque preguntan por etiquetas de género.</p>
+        <p class="nota-ed"><b>Nota de edición.</b> Bourdieu, <i>La distinction. Critique sociale du jugement</i>, Minuit, 1979 (edición aumentada, 1982); en castellano, <i>La distinción. Criterio y bases sociales del gusto</i>, traducción de María del Carmen Ruiz de Elvira, Taurus, 1988 — el título circula como «Criterio» y como «Criterios» según la tirada: verificar contra el ejemplar de aula. La frase de la introducción va en francés porque la versión de Taurus no pudo cotejarse; la traducción castellana es de esta ficha. La formulación sobre los disgustos está en la página 60 de Minuit. Bryson, «Anything But Heavy Metal», <i>American Sociological Review</i> 61(5), 1996, pp. 884-899; Peterson y Kern, «Changing Highbrow Taste», mismo número, pp. 900-907; Lizardo y Skiles, <i>Sociological Science</i> 3, 2016, pp. 85-108; Chan y Goldthorpe, <i>European Sociological Review</i> 23(1), 2007, pp. 1-19; Lamont, <i>Money, Morals, and Manners</i>, University of Chicago Press, 1992. Datos argentinos: ENCC 2022-2023, SInCA, campo de noviembre de 2022 a enero de 2023, población de 13 años y más en localidades de más de 30.000 habitantes. COMFER: Cecilia Serpa, «Estado argentino y cumbia villera», <i>Revista Latinoamericana de Estudios del Discurso</i> 6(2), 2006, pp. 61-82. Música popular y clase en Argentina: Semán y Vila en Filmus (comp.), <i>Los noventa</i>, Eudeba/FLACSO, 1999, pp. 225-258; Alabarces y Silba, <i>Cultura y representaciones sociales</i> 8(16), 2014, pp. 52-74.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-21 · pág. 3 de 3</span>
+    <span>No escucho eso</span>
+  </div>
+</section>
+
+</body>
+</html>
