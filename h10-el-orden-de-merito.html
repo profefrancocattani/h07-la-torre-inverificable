@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<title>H-10 · El orden de mérito</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: #6f6f6f;
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .hoja {
+    width: 297mm; height: 210mm;
+    background: #fff;
+    margin: 0 auto 6mm;
+    padding: 10mm 14mm 9mm 20mm;
+    position: relative;
+    overflow: hidden;
+  }
+  .hoja.verso { padding: 10mm 20mm 9mm 14mm; }
+
+  .cabezal {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 0.7mm solid #000;
+    padding-bottom: 1.3mm; margin-bottom: 1.1mm;
+  }
+  .sigla {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 19pt; font-weight: 700; letter-spacing: 0.06em; line-height: 1;
+  }
+  .ubic {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.5pt; letter-spacing: 0.12em; text-transform: uppercase;
+    text-align: right; line-height: 1.45;
+  }
+
+  .subcabezal {
+    display: flex; justify-content: space-between; gap: 8mm;
+    border-bottom: 0.25mm solid #000;
+    padding-bottom: 2mm; margin-bottom: 2.8mm;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.2pt; letter-spacing: 0.06em;
+  }
+  .campo { flex: 1 1 auto; }
+  .campo span { border-bottom: 0.25mm dotted #000; display: inline-block; min-width: 55mm; }
+
+  .titulo {
+    font-size: 19.5pt; font-weight: normal; line-height: 1.08;
+    margin: 0 0 1.2mm; letter-spacing: -0.015em;
+  }
+  .bajada {
+    font-style: italic; font-size: 9.4pt; line-height: 1.35;
+    margin: 0 0 3mm; padding-bottom: 2.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  .cols {
+    display: flex; align-items: stretch; gap: 0;
+    min-height: 148mm;
+  }
+  .hoja.p1 .cols { min-height: 128mm; }
+  .col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex; flex-direction: column;
+  }
+  .col.izq { padding-right: 5.2mm; border-right: 0.25mm solid #000; }
+  .col.der { padding-left: 5.2mm; }
+
+  h2 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 8.2pt; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; margin: 0 0 2.8mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  p {
+    font-size: 9.6pt; line-height: 1.58;
+    margin: 0 0 3.4mm; text-align: justify; hyphens: auto;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  .lead-time {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase;
+    margin: 0 0 3.2mm; line-height: 1.3;
+  }
+
+  .caja {
+    border: 0.35mm solid #000;
+    padding: 3.2mm 3mm 3.4mm;
+    margin: 0 0 3.4mm;
+  }
+  .caja:last-child { margin-bottom: 0; }
+  .caja .ctit {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.9pt; font-weight: 700; letter-spacing: 0.04em;
+    display: block; margin-bottom: 1.6mm;
+    padding-bottom: 1.3mm;
+    border-bottom: 0.25mm solid #000;
+  }
+  .caja p {
+    font-size: 8.85pt; line-height: 1.5; margin: 0;
+    text-align: justify;
+  }
+
+  .fill { flex: 1 1 auto; }
+
+  .nota-ed {
+    font-size: 7.2pt; line-height: 1.45;
+    margin: 4.5mm 0 0;
+    padding-top: 2.6mm;
+    border-top: 0.25mm solid #000;
+    text-align: justify;
+  }
+  .nota-ed b {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .pie {
+    position: absolute;
+    left: 20mm; right: 14mm; bottom: 5mm;
+    display: flex; justify-content: space-between;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.4pt; letter-spacing: 0.08em;
+    border-top: 0.25mm solid #000;
+    padding-top: 1.3mm;
+  }
+  .verso .pie { left: 14mm; right: 20mm; }
+
+  .cuerpo { padding-bottom: 7.5mm; }
+
+  .sep-bloque { margin-top: 4.5mm; }
+
+  /* p1 */
+  .hoja.p1 .caja { padding: 6.2mm 3.3mm 6.6mm; margin: 0 0 4.8mm; }
+  .hoja.p1 .caja p { font-size: 9.15pt; line-height: 1.55; }
+  .hoja.p1 .caja .ctit { font-size: 8pt; margin-bottom: 1.8mm; padding-bottom: 1.5mm; }
+  .hoja.p1 p { font-size: 9.5pt; line-height: 1.56; margin: 0 0 3mm; }
+  .hoja.p1 .col.der p { font-size: 9.45pt; line-height: 1.55; margin: 0 0 2.8mm; }
+  .hoja.p1 .sep-bloque { margin-top: 3.2mm; }
+  .hoja.p1 h2 { margin-bottom: 2.4mm; padding-bottom: 1.3mm; }
+  .hoja.p1 .lead-time { margin: 0 0 4.2mm; }
+
+  /* p2 verso */
+  .hoja.verso .cols { min-height: 162mm; }
+  .hoja.verso .caja { padding: 3.2mm 3mm 3.4mm; margin: 0 0 3mm; }
+  .hoja.verso .caja p { font-size: 8.85pt; line-height: 1.48; }
+  .hoja.verso .caja .ctit { font-size: 7.8pt; margin-bottom: 1.4mm; padding-bottom: 1.2mm; }
+  .hoja.verso p { font-size: 9.4pt; line-height: 1.55; margin: 0 0 3mm; }
+  .hoja.verso .col.izq p { font-size: 9.55pt; line-height: 1.58; margin: 0 0 3.2mm; }
+  .hoja.verso .col.izq .caja { padding: 3.4mm 3.1mm 3.6mm; margin: 0 0 3mm; }
+  .hoja.verso .col.izq .caja p { font-size: 8.9pt; line-height: 1.5; }
+  .hoja.verso .sep-bloque { margin-top: 3.8mm; }
+  .hoja.verso h2 { margin-bottom: 2.4mm; padding-bottom: 1.3mm; }
+  .hoja.verso .col.der .caja { padding: 3.6mm 3.1mm 3.8mm; margin: 0 0 3.2mm; }
+  .hoja.verso .col.der .caja p { font-size: 8.9pt; line-height: 1.5; }
+
+  /* p3 */
+  .hoja.p3 .cols { min-height: 162mm; }
+  .hoja.p3 .caja { padding: 6.2mm 3.5mm 6.5mm; margin: 0 0 5.2mm; }
+  .hoja.p3 .caja p { font-size: 9.2pt; line-height: 1.56; }
+  .hoja.p3 .caja .ctit { font-size: 8.1pt; margin-bottom: 1.8mm; padding-bottom: 1.5mm; }
+  .hoja.p3 p { font-size: 9.85pt; line-height: 1.68; margin: 0 0 4.6mm; }
+  .hoja.p3 .nota-ed { margin-top: 6mm; font-size: 7.2pt; line-height: 1.5; }
+  .hoja.p3 h2 { margin-bottom: 3.6mm; padding-bottom: 1.8mm; }
+  .hoja.p3 .sep-bloque { margin-top: 5.2mm; }
+  .hoja.p3 .col.izq .caja { padding: 7mm 3.5mm 7.4mm; margin: 0 0 5.8mm; }
+
+  em, i { font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ===================== PÁGINA 1 ===================== -->
+<section class="hoja p1">
+  <div class="cabezal">
+    <div class="sigla">H-10</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+  <div class="subcabezal">
+    <div class="campo">Nombre <span>&nbsp;</span></div>
+    <div class="campo" style="flex:0 0 42mm; text-align:right;">Fecha <span style="min-width:28mm;">&nbsp;</span></div>
+  </div>
+  <h1 class="titulo">El orden de mérito</h1>
+  <p class="bajada">Lectura para el ensayo individual · Capítulo 3 · Sociología, 5º año.</p>
+
+  <div class="cuerpo">
+    <div class="cols">
+      <div class="col izq">
+        <p class="lead-time">Tiempo estimado de lectura: 10 minutos</p>
+        <h2>Tres listas del mismo curso</h2>
+        <div class="caja">
+          <span class="ctit">La planilla de asistencia</span>
+          <p>La planilla de asistencia ordena a treinta personas por apellido.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La lista de promedios</span>
+          <p>La lista de promedios ordena a esas mismas treinta personas de otro modo, y ese orden cambia cada bimestre.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La formación del acto</span>
+          <p>La formación del acto las ordena por tercera vez: adelante, la escolta; atrás, el resto del curso; a un costado, los cursos menores.</p>
+        </div>
+        <p>Tres documentos, un mismo grupo, tres series distintas. Ninguno de los tres inventó a las personas que ordena. Los tres producen algo que antes no existía: un puesto.</p>
+      </div>
+      <div class="col der">
+        <h2>El cuarto elemento del arte de las distribuciones</h2>
+        <p>Foucault describe cuatro operaciones con las que la disciplina reparte cuerpos en el espacio. La clausura, o sea el espacio cerrado y aparte: el colegio, el cuartel, la fábrica. La localización elemental: a cada individuo su lugar, y en cada lugar un individuo, para que no haya grupos difusos. Los emplazamientos funcionales: cada zona sirve para una cosa. Y el rango.</p>
+        <p>El rango es la operación más abstracta de las cuatro, y la que se lleva mejor con la escuela. Su unidad no es un territorio ni un local: es el puesto que alguien ocupa en una clasificación. En una serie así, cada uno queda definido por el lugar que tiene y por la distancia que lo separa de los demás. Y ahí aparece el efecto que a Foucault le interesa: los individuos se vuelven intercambiables, porque lo que los define ya no es quiénes son sino en qué posición están.</p>
+        <p>Una serie admite entradas y salidas sin romperse. Si el primero se va, alguien pasa a primero. El puesto sobrevive a la persona que lo ocupa.</p>
+        <h2 class="sep-bloque">El sueño de La Salle</h2>
+        <p>El libro trae un ejemplo del siglo XVIII que conviene tener a mano.</p>
+        <p>Jean-Baptiste de La Salle, fundador de una orden dedicada a las escuelas, imaginó un aula donde la sola distribución de los bancos mostrara varias clasificaciones al mismo tiempo: el grado de adelanto de cada alumno, el valor de cada uno, la bondad de su carácter, su aplicación, su limpieza y la fortuna de sus padres. El salón funcionaría como un cuadro de entradas múltiples, leíble de un vistazo por el maestro.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-10 · pág. 1 de 3</span>
+    <span>El orden de mérito</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 2 ===================== -->
+<section class="hoja verso">
+  <div class="cabezal">
+    <div class="sigla">H-10</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 2mm;">
+    <div class="cols">
+      <div class="col izq">
+        <p>El reglamento que Foucault cita a continuación fija los lugares: cada uno sentado según su lección, los más avanzados contra la pared, los demás hacia el centro, sin cambiar de sitio salvo autorización.</p>
+        <p>Vale detenerse en el último ítem de la lista de La Salle. Entre los criterios que el aula debía volver visibles estaba la fortuna de los padres, escrita ahí con la misma naturalidad que la limpieza y la aplicación. Ese detalle es la puerta de entrada al otro autor del capítulo.</p>
+        <h2 class="sep-bloque">Tres instrumentos que hoy fabrican rango</h2>
+        <div class="caja">
+          <span class="ctit">El promedio</span>
+          <p>Convierte actividades que no se parecen —una prueba escrita, una exposición oral, una carpeta, un trabajo grupal— en un número único. Ese número permite alinear a treinta personas en una sola serie. Además admite corrección: alguien sube, alguien baja, el orden se recalcula. La revisión periódica forma parte del instrumento, no es una falla.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">La lista alfabética</span>
+          <p>Tiene aspecto de no ordenar nada, y ordena. Reparte quién pasa primero al pizarrón, quién expone último, quién recibe el boletín cuando ya sonó el timbre. El criterio que usa es el apellido, que nadie eligió y que viene de la familia.</p>
+        </div>
+      </div>
+      <div class="col der">
+        <div class="caja">
+          <span class="ctit">La escolta</span>
+          <p>Acá el rango se vuelve ceremonia: sale del papel, se para adelante y el resto de la escuela lo mira en formación. Lo importante para el ensayo es que el criterio está escrito en algún lado. En cada jurisdicción hay una norma, y las normas cambian y se discuten: en Mendoza, la Dirección General de Escuelas aprobó un reglamento nuevo en octubre de 2025, con un orden de mérito que se calcula en un sistema informático; en San Luis, un decreto de 2024 reemplazó la votación por el promedio. En la provincia de Buenos Aires, el anexo de la Ley 14.438 establece que a nadie se lo puede privar del honor de portar o escoltar la Bandera por su nacionalidad, origen, religión, raza, características físicas o condición social. Y cada institución suele agregar sus propias condiciones: conducta, materias aprobadas, ausencia de sanciones.</p>
+        </div>
+        <p>El criterio de la escolta de esta escuela es un documento. Pedirlo y leerlo es la mitad del ensayo.</p>
+        <h2 class="sep-bloque">Dónde el rango deja de explicar</h2>
+        <div class="caja">
+          <span class="ctit">Los ordenamientos que el curso trae de afuera</span>
+          <p>En cualquier curso hay órdenes que ninguna planilla registra: a quién escuchan cuando habla, a quién invitan, quién juega bien, quién trabaja a la tarde, de qué barrio viene cada uno, qué hermano pasó antes por esta escuela. Esos órdenes existen sin documento y suelen ser más difíciles de modificar que un promedio. El aparato que describe Foucault no los produce.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-10 · pág. 2 de 3</span>
+    <span>El orden de mérito</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 3 ===================== -->
+<section class="hoja p3">
+  <div class="cabezal">
+    <div class="sigla">H-10</div>
+    <div class="ubic">Sociología · 5º año · Capítulo 3<br>Lectura para el ensayo individual · 10 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 2mm;">
+    <div class="cols">
+      <div class="col izq">
+        <div class="caja">
+          <span class="ctit">La conversión entre órdenes</span>
+          <p>El límite más filoso está en el cruce. Algunos ordenamientos de afuera entran a la escuela y salen convertidos en puesto: la casa donde hay libros, la lengua que ya se hablaba antes de primer grado, el tiempo disponible para estudiar. El rango describe la máquina que ordena y no explica por qué arriba aparece aproximadamente la misma gente. Esa pregunta pide capital y habitus, y por eso este eje cierra en Bourdieu.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">El rango que nadie obedece</span>
+          <p>Una clasificación puede existir en el papel y no producir efecto alguno sobre el curso. Que el orden esté impreso no prueba que organice la vida de nadie: eso se averigua mirando qué pasa, no leyendo el reglamento.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Lo que la gente hace con su puesto</span>
+          <p>Un promedio alto sirve para una beca, un certificado, una inscripción. Describir el rango solamente como una restricción deja afuera los usos que tiene, y los usos son parte del fenómeno.</p>
+        </div>
+      </div>
+      <div class="col der">
+        <div class="caja">
+          <span class="ctit">Cuidado de trabajo</span>
+          <p>Este eje se analiza sobre la forma del instrumento y sobre los documentos. Sin armar listas de personas, sin nombres y sin rankings del curso, ni siquiera como ejemplo.</p>
+        </div>
+        <h2 class="sep-bloque">El estado de la discusión</h2>
+        <p>El texto de Foucault describe colegios franceses del siglo XVIII. El abanderado argentino tiene otra historia: nace atado a la ceremonia patriótica, a la Bandera y al acto escolar, un linaje que el libro no trata. Aplicar el concepto exige, entonces, el documento local. Sin la norma de la jurisdicción y el criterio de la escuela, el análisis queda en préstamo.</p>
+        <p>Sobre el tipo de evidencia disponible, dos rótulos. Primero: no hay investigación que mida qué produce el sistema de abanderados sobre los estudiantes argentinos. Lo que hay son normas, resoluciones y discusión pública. Segundo: esa discusión pública es en sí misma un dato. Que las provincias cambien el criterio —del voto al promedio, del promedio a la tabulación con conducta— muestra que el orden de mérito se decide, y que la decisión está en disputa. Un instrumento discutido es un instrumento que puede describirse históricamente, con fechas.</p>
+        <p class="nota-ed"><b>Nota de edición.</b> Foucault, <i>Vigilar y castigar</i>, tercera parte «Disciplina», capítulo 1 «Los cuerpos dóciles», sección «El arte de las distribuciones», apartado sobre el rango; edición de Siglo XXI, traducción de Aurelio Garzón del Camino. La paginación varía entre reimpresiones: verificar contra el ejemplar de aula. Normativa citada: Ley 14.438 de la provincia de Buenos Aires (anexo sobre ceremonial de la Bandera); Resolución 6086/2025 de la Dirección General de Escuelas de Mendoza; Decreto 8327-ME-2024 de la provincia de San Luis. Las dos últimas rigen en sus jurisdicciones y se citan acá como prueba de que el criterio cambia.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-10 · pág. 3 de 3</span>
+    <span>El orden de mérito</span>
+  </div>
+</section>
+
+</body>
+</html>
