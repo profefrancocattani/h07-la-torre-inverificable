@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<title>H-22 · De regular cuerpos a seducir psiques</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: #6f6f6f;
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .hoja {
+    width: 297mm; height: 210mm;
+    background: #fff;
+    margin: 0 auto 6mm;
+    padding: 10mm 14mm 9mm 20mm;
+    position: relative;
+    overflow: hidden;
+  }
+  .hoja.verso { padding: 10mm 20mm 9mm 14mm; }
+
+  .cabezal {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 0.7mm solid #000;
+    padding-bottom: 1.3mm; margin-bottom: 1.1mm;
+  }
+  .sigla {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 19pt; font-weight: 700; letter-spacing: 0.06em; line-height: 1;
+  }
+  .ubic {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.5pt; letter-spacing: 0.12em; text-transform: uppercase;
+    text-align: right; line-height: 1.45;
+  }
+
+  .subcabezal {
+    display: flex; justify-content: space-between; gap: 8mm;
+    border-bottom: 0.25mm solid #000;
+    padding-bottom: 2mm; margin-bottom: 2.4mm;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.2pt; letter-spacing: 0.06em;
+  }
+  .campo { flex: 1 1 auto; }
+  .campo span { border-bottom: 0.25mm dotted #000; display: inline-block; min-width: 55mm; }
+
+  .titulo {
+    font-size: 15.5pt; font-weight: normal; line-height: 1.08;
+    margin: 0 0 1mm; letter-spacing: -0.015em;
+  }
+  .bajada {
+    font-style: italic; font-size: 9pt; line-height: 1.32;
+    margin: 0 0 2.2mm; padding-bottom: 2mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  .cols {
+    display: flex; align-items: stretch; gap: 0;
+    min-height: 148mm;
+  }
+  .hoja.p1 .cols { min-height: 118mm; }
+  .col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex; flex-direction: column;
+  }
+  .col.izq { padding-right: 5mm; border-right: 0.25mm solid #000; }
+  .col.der { padding-left: 5mm; }
+
+  h2 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.8pt; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 700; margin: 0 0 1.8mm;
+    padding-bottom: 1.1mm;
+    border-bottom: 0.25mm solid #000;
+  }
+
+  p {
+    font-size: 9.05pt; line-height: 1.48;
+    margin: 0 0 2.4mm; text-align: justify; hyphens: auto;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  .lead-time {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.8pt; letter-spacing: 0.08em; text-transform: uppercase;
+    margin: 0 0 2mm; line-height: 1.3;
+  }
+
+  .caja {
+    border: 0.35mm solid #000;
+    padding: 2.8mm 2.7mm 3mm;
+    margin: 0 0 2.5mm;
+  }
+  .caja:last-child { margin-bottom: 0; }
+  .caja .ctit {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7.1pt; font-weight: 700; letter-spacing: 0.04em;
+    display: block; margin-bottom: 1mm;
+    padding-bottom: 0.9mm;
+    border-bottom: 0.25mm solid #000;
+  }
+  .caja p {
+    font-size: 8.5pt; line-height: 1.4; margin: 0 0 1.8mm;
+    text-align: justify;
+  }
+  .caja p:last-child { margin-bottom: 0; }
+
+  .fill { flex: 1 1 auto; }
+
+  .lista {
+    margin: 0 0 1.6mm; padding: 0; list-style: none;
+  }
+  .lista li {
+    font-size: 8pt; line-height: 1.36;
+    margin: 0 0 1.2mm;
+    padding-left: 3mm;
+    text-indent: -3mm;
+    text-align: left;
+  }
+  .lista li::before { content: "· "; }
+  .caja .lista li { font-size: 7.9pt; line-height: 1.34; margin: 0 0 1.1mm; }
+
+  .pie {
+    position: absolute;
+    left: 20mm; right: 14mm; bottom: 5mm;
+    display: flex; justify-content: space-between;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.4pt; letter-spacing: 0.08em;
+    border-top: 0.25mm solid #000;
+    padding-top: 1.3mm;
+  }
+  .verso .pie { left: 14mm; right: 20mm; }
+
+  .cuerpo { padding-bottom: 7.5mm; }
+  .sep-bloque { margin-top: 2.8mm; }
+
+  .hoja.p1 p { font-size: 9pt; line-height: 1.46; margin: 0 0 2.2mm; }
+  .hoja.p1 .caja { padding: 2.6mm 2.5mm 2.8mm; margin: 0 0 2.3mm; }
+  .hoja.p1 .caja p { font-size: 8.4pt; line-height: 1.38; }
+  .hoja.p1 .caja .ctit { font-size: 7pt; }
+  .hoja.p1 h2 { margin-bottom: 1.5mm; font-size: 7.5pt; }
+
+  .hoja.verso .cols { min-height: 162mm; }
+  .hoja.verso p { font-size: 9pt; line-height: 1.46; margin: 0 0 2.2mm; }
+  .hoja.verso .caja { padding: 2.6mm 2.5mm 2.8mm; margin: 0 0 2.3mm; }
+  .hoja.verso .caja p { font-size: 8.4pt; line-height: 1.38; }
+  .hoja.verso .caja .ctit { font-size: 7pt; }
+  .hoja.verso h2 { margin-bottom: 1.5mm; font-size: 7.5pt; }
+  .hoja.verso .sep-bloque { margin-top: 2.6mm; }
+
+  .hoja.p3 .cols { min-height: 162mm; }
+  .hoja.p3 p { font-size: 9pt; line-height: 1.46; margin: 0 0 2.2mm; }
+  .hoja.p3 .caja { padding: 2.6mm 2.5mm 2.8mm; margin: 0 0 2.3mm; }
+  .hoja.p3 .caja p { font-size: 8.4pt; line-height: 1.38; }
+  .hoja.p3 .caja .ctit { font-size: 7pt; }
+  .hoja.p3 h2 { margin-bottom: 1.5mm; font-size: 7.5pt; }
+  .hoja.p3 .sep-bloque { margin-top: 2.6mm; }
+
+  .hoja.p4 .cols { min-height: 162mm; align-items: flex-start; }
+  .hoja.p4 p { font-size: 8.9pt; line-height: 1.44; margin: 0 0 2mm; }
+  .hoja.p4 .caja { padding: 2.4mm 2.4mm 2.6mm; margin: 0 0 2.2mm; }
+  .hoja.p4 .caja p { font-size: 8.2pt; line-height: 1.36; }
+  .hoja.p4 .caja .ctit { font-size: 6.9pt; }
+  .hoja.p4 h2 { margin-bottom: 1.4mm; font-size: 7.4pt; }
+  .hoja.p4 .sep-bloque { margin-top: 2.4mm; }
+  .hoja.p4 .item { margin: 0 0 3.2mm; }
+  .hoja.p4 .item .preg { font-size: 8.1pt; line-height: 1.36; margin: 0 0 1.2mm; }
+  .hoja.p4 .item .r { height: 6.2mm; }
+  .hoja.p4 .caja { padding: 3.2mm 2.8mm 3.4mm; margin: 0 0 3mm; }
+  .hoja.p4 .caja p { font-size: 8.5pt; line-height: 1.42; }
+  .hoja.p4 p { font-size: 9.1pt; line-height: 1.5; margin: 0 0 2.6mm; }
+  .hoja.p4 h2 { margin-bottom: 2mm; font-size: 7.6pt; }
+
+  .item {
+    margin: 0 0 2.2mm;
+    padding-bottom: 0;
+  }
+  .item:last-child { margin-bottom: 0; }
+  .item .htag {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.8pt; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block; margin-bottom: 0.7mm;
+    padding-bottom: 0.5mm;
+    border-bottom: 0.25mm solid #000;
+  }
+  .item .preg {
+    font-size: 8pt; line-height: 1.34;
+    margin: 0 0 1mm; text-align: left;
+  }
+  .item .r {
+    border-bottom: 0.25mm dotted #000;
+    height: 5.4mm;
+  }
+
+  .aviso-mini {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 6.6pt; letter-spacing: 0.04em;
+    margin: 0 0 2mm; line-height: 1.35;
+    font-style: italic;
+  }
+
+  em, i { font-style: italic; }
+  strong, b { font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ===================== PÁGINA 1 ===================== -->
+<section class="hoja p1">
+  <div class="cabezal">
+    <div class="sigla">H-22</div>
+    <div class="ubic">Formación / Sociología · Secundaria<br>Lectura · Biopolítica y psicopolítica · 12–15 min</div>
+  </div>
+  <div class="subcabezal">
+    <div class="campo">Nombre <span>&nbsp;</span></div>
+    <div class="campo" style="flex:0 0 42mm; text-align:right;">Fecha <span style="min-width:28mm;">&nbsp;</span></div>
+  </div>
+  <h1 class="titulo">De regular cuerpos a seducir psiques</h1>
+  <p class="bajada">¿Quién manda cuando nadie te dice «no»?</p>
+
+  <div class="cuerpo">
+    <div class="cols">
+      <div class="col izq">
+        <p class="lead-time">Tiempo estimado de lectura: 12–15 minutos · ~15–18 años</p>
+        <p>Imaginate esto: durante mucho tiempo el poder se notaba. Había un cartel, una regla, un policía, un médico de la escuela, un formulario. Te prohibían algo o te obligaban a hacer otra cosa. Hoy, en cambio, muchas veces nadie te aprieta. Te piden que seas vos mismo, que te expreses, que elijas, que «optimices» tu día. Y aun así sentís que algo te está empujando: a producir contenido, a medir tu cuerpo, a querer lo que la pantalla te muestra como deseable.</p>
+        <p>La pregunta de este texto es simple y molesta: <strong>¿qué cambió en la forma en que el poder administra la vida?</strong> La respuesta corta —que después vamos a abrir— es esta: pasamos de una lógica que regulaba <strong>cuerpos y poblaciones</strong> (biopolítica) a otra que seduce <strong>psiques</strong> que producen <strong>datos y deseos</strong> (psicopolítica). Esa segunda idea la formula con fuerza el filósofo Byung-Chul Han en <i>Psicopolítica</i> (2014).</p>
+        <p>No hace falta que te guste Han ni que lo «creás» como verdad revelada. Lo que importa es usar el contraste como herramienta: te ayuda a mirar la escuela, el teléfono, el gym, el feed y hasta las campañas de «bienestar» con un poco más de sospecha productiva.</p>
+      </div>
+      <div class="col der">
+        <h2>Bloque 1 — Antes: el poder que administra la vida</h2>
+        <p>Para entender el salto, hay que arrancar un paso atrás. En el siglo XX, Michel Foucault estudió cómo el poder moderno dejó de ser solo el poder del rey que castiga o mata («hacer morir») y pasó a ser un poder que <strong>hace vivir</strong>: organiza la salud, la natalidad, la higiene, el trabajo, la sexualidad, las estadísticas de población.</p>
+        <p>A eso lo llamó, en términos generales, <strong>biopolítica</strong>: el poder que toma la <strong>vida</strong> —no solo la ley— como objeto de gobierno. No habla solo de un dictador malvado. Habla de técnicas: censos, vacunas, campañas sanitarias, controles de natalidad, edificios pensados para vigilar, escuelas que disciplinan horarios y cuerpos, hospitales, prisiones, fábricas.</p>
+        <p>Acá conviene separar dos capas que a veces se mezclan:</p>
+        <div class="caja">
+          <span class="ctit">Disciplina vs Biopolítica</span>
+          <p><strong>Disciplina:</strong> actúa sobre el <strong>cuerpo individual</strong> en espacios concretos (el aula, el cuartel, la fábrica). Te dice dónde pararte, cuándo callarte, cómo moverte.</p>
+          <p><strong>Biopolítica (en sentido amplio):</strong> actúa sobre <strong>poblaciones</strong>. Le interesan tasas, promedios, riesgos: cuántos nacen, cuántos enferman, cómo se reparte la fuerza de trabajo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-22 · pág. 1 de 4</span>
+    <span>Biopolítica → psicopolítica</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 2 · VERSO ===================== -->
+<section class="hoja verso">
+  <div class="cabezal">
+    <div class="sigla">H-22</div>
+    <div class="ubic">Formación / Sociología · Secundaria<br>Lectura · Biopolítica y psicopolítica · 12–15 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 1.5mm;">
+    <div class="cols">
+      <div class="col izq">
+        <p>El punto clave no es «el Estado es malo». El punto es: el poder moderno se volvió experto en <strong>gestionar lo vivo</strong>. Te cuida y te administra al mismo tiempo. Te protege y te clasifica. Te incluye en curvas, gráficos, categorías.</p>
+        <p>En la vida escolar eso se ve en partes, controles de salud, el DNI, categorías de «riesgo». Organizan vidas en masa: a veces cuidan; siempre son <strong>poder</strong>, porque alguien define qué cuenta como vida normal o saludable.</p>
+        <h2 class="sep-bloque">Bloque 2 — El límite de la biopolítica clásica</h2>
+        <p>La biopolítica «clásica» (la que Foucault ayuda a pensar) todavía se entiende bastante con la figurita del <strong>freno</strong>: prohibiciones, normas, instituciones, vigilancia externa. Aunque sea sutil, hay un afuera que te mira y te mide.</p>
+        <p>Han dice, en <i>Psicopolítica</i> (2014), que el capitalismo neoliberal —el de las plataformas, el marketing emocional, el «emprendedurismo» de uno mismo— ya no necesita tanto ese freno. Prefiere el <strong>acelerador</strong>.</p>
+        <p>En vez de decirte «no podés», te dice «podés ser más». En vez de reprimir tu deseo, lo <strong>estimula</strong> y lo <strong>orienta</strong>. En vez de encerrarte, te invita a mostrarte. El poder se vuelve «positivo»: no parece opresión; parece oportunidad.</p>
+        <p>Eso no significa que desaparezcan la policía, la escuela o el hospital. Significa que aparece otra capa, más íntima: el poder que opera en la <strong>psique</strong>, en la motivación, en la autoexigencia, en la sensación de libertad.</p>
+      </div>
+      <div class="col der">
+        <h2>Bloque 3 — Qué es la psicopolítica (2014)</h2>
+        <p><strong>Psicopolítica</strong>, en el sentido de Han, es el gobierno de la mente y del ánimo: un poder que no se contenta con disciplinar cuerpos, sino que trabaja sobre <strong>emociones, atención, deseos y datos psíquicos</strong>.</p>
+        <p>Piezas del argumento (sin inventar «pruebas» extra):</p>
+        <div class="caja">
+          <span class="ctit">Piezas de psicopolítica</span>
+          <ul class="lista">
+            <li><strong>Libertad como control.</strong> Si te sentís libre, colaborás. La explotación no es solo «me obligan»: también es «me obligo» porque internalizaste rendir, brillar, estar disponible.</li>
+            <li><strong>Del «debes» al «puedes».</strong> El sujeto disciplinado oía deber. El sujeto de rendimiento oye posibilidad. Parece más suave; a veces cansa más.</li>
+            <li><strong>Seducción emocional.</strong> Redes y marketing no te ordenan: te gustan. Venden identidades y moods, no solo productos.</li>
+            <li><strong>Datos.</strong> Likes, búsquedas, tiempo de pantalla, el reloj que mide el pulso: se perfila la psique, no solo el cuerpo en la calle.</li>
+          </ul>
+        </div>
+        <p>El poder inteligente no amenaza; <strong>sonríe</strong>. No grita «obedecé»; susurra «expresate». Y en esa expresión se produce valor: atención, datos, deseos repetibles. No es un villano en un bunker: son técnicas —plataformas, métricas, yo-marca, bienestar cuantificado.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-22 · pág. 2 de 4</span>
+    <span>Biopolítica → psicopolítica</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 3 ===================== -->
+<section class="hoja p3">
+  <div class="cabezal">
+    <div class="sigla">H-22</div>
+    <div class="ubic">Formación / Sociología · Secundaria<br>Lectura · Biopolítica y psicopolítica · 12–15 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 1.5mm;">
+    <div class="cols">
+      <div class="col izq">
+        <h2>Bloque 4 — De regular poblaciones a producir deseos (y datos)</h2>
+        <p>Acá está el salto que pedía el título.</p>
+        <div class="caja">
+          <span class="ctit">Biopolítica · eje cuerpos / poblaciones</span>
+          <p>¿Cuántos somos? ¿Cómo enfermamos? ¿Cómo trabajamos? ¿Cómo nos reproducimos? El poder organiza la vida biológica y social a escala masiva. El objeto es la población y el cuerpo como fuerza.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Psicopolítica · eje psiques / datos / deseos</span>
+          <p>¿Qué querés? ¿Qué te enoja? ¿Qué te aburre en tres segundos? ¿Qué te hace volver a la app? El poder organiza la vida psíquica y la convierte en recurso. El objeto es la atención, la motivación, el perfil emocional.</p>
+        </div>
+        <p>En la biopolítica, a menudo te cuentan <strong>desde afuera</strong>. En la psicopolítica, muchas veces <strong>te contás vos</strong>: publicás, medís tus pasos, trackeás el sueño, compartís el estado de ánimo, armás tu «marca personal». El sujeto se vuelve productor de su propia transparencia.</p>
+        <p>Eso tiene un giro cruel: la vigilancia ya no necesita solo cámaras. Necesita <strong>voluntarios</strong>. Gente que, buscando reconocimiento o pertenencia, entrega el mapa de su interioridad.</p>
+        <p>Y hay otro giro: el deseo deja de ser solo «lo que me sale de adentro». Se fabrica, se enseña, se A/B testea. No es que no exista lo auténtico; es que lo auténtico también puede ser <strong>diseñado</strong> como producto.</p>
+      </div>
+      <div class="col der">
+        <h2>Bloque 5 — Dos escenas para aterrizar (sin seductores de más)</h2>
+        <div class="caja">
+          <span class="ctit">Escena A — Escuela «biopolítica»</span>
+          <p>Horarios, filas, notas, partes, presente/ausente. El cuerpo en un lugar y una hora. Si te salís, hay sanción. El poder se ve.</p>
+        </div>
+        <div class="caja">
+          <span class="ctit">Escena B — Escuela y vida «psicopolítica»</span>
+          <p>Te piden motivación, pasión, proyectos, perfil. A veces no hay castigo fuerte: hay vergüenza de no rendir, miedo a quedar afuera del feed. El poder se siente por adentro.</p>
+        </div>
+        <p>Las dos conviven. Nadie apagó la biopolítica. Han sugiere que, con datos y emociones, la psicopolítica gana peso: vuelve productivo lo que parecía íntimo —gustos, miedos, aburrimiento.</p>
+        <h2 class="sep-bloque">Metáfora: del corral al GPS emocional</h2>
+        <p>Pensá la biopolítica clásica como un <strong>corral con alambrado</strong>: te limita el espacio, te cuenta las cabezas, te cura si hace falta, te marca. Sabés más o menos dónde está el límite porque lo tocás.</p>
+        <p>Pensá la psicopolítica como un <strong>GPS emocional</strong> que te habla con voz amable: «girás a la derecha hacia tu mejor versión», «estas personas también vieron esto», «tu racha de productividad bajó». No te encierra con un paredón. Te <strong>guia</strong> con sugerencias, recompensas, rankings y likes. El mapa lo actualizan con lo que vos mismo reportás al caminar.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-22 · pág. 3 de 4</span>
+    <span>Biopolítica → psicopolítica</span>
+  </div>
+</section>
+
+<!-- ===================== PÁGINA 4 · VERSO ===================== -->
+<section class="hoja verso p4">
+  <div class="cabezal">
+    <div class="sigla">H-22</div>
+    <div class="ubic">Formación / Sociología · Secundaria<br>Lectura · Biopolítica y psicopolítica · 12–15 min</div>
+  </div>
+
+  <div class="cuerpo" style="padding-top: 1.5mm;">
+    <div class="cols">
+      <div class="col izq">
+        <div class="caja">
+          <span class="ctit">Dónde se rompe la metáfora</span>
+          <p>Un GPS no «odia» ni «ama»; es una herramienta. El poder social, en cambio, no es solo software: son empresas, Estados, escuelas, culturas de clase, desigualdades. Además, no todo deseo es fabricado ni toda app es cárcel. La metáfora sirve para ver la <strong>seducción guiada</strong>; se rompe si la usás para decir que «no existe libertad ninguna» o que «todo es fake». Eso sería otro mito fácil, y los mitos fáciles también son poder barato.</p>
+        </div>
+        <h2 class="sep-bloque">Cierre — Qué te deja mirar esto</h2>
+        <p>Si el poder antiguo se notaba al decir <strong>no</strong>, el psicopolítico se nota cuando te hace decir <strong>sí</strong> sin parar: producir, compartir, optimizarte, desear lo conveniente.</p>
+        <p>No te vuelve víctima automática. Te deja preguntar: ¿esto me lo pido yo o me lo vendieron como libertad? ¿cuido mi vida o produzco datos con ella? ¿mi deseo es solo mío, o también circula como producto?</p>
+        <p>La biopolítica administraba poblaciones. La psicopolítica, según Han (2014), seduce psiques. El pasaje no es para asustar: es para ganar distancia cuando el poder viene disfrazado de motivación.</p>
+      </div>
+      <div class="col der">
+        <h2>Mini-chequeo de comprensión</h2>
+        <p class="aviso-mini">Recuperación activa · Respondé sin mirar arriba, en una o dos oraciones cada una.</p>
+        <div class="item">
+          <span class="htag">1 · Regular vs seducir</span>
+          <p class="preg">¿En qué se diferencia, en una frase, un poder que <strong>regula cuerpos/poblaciones</strong> de un poder que <strong>seduce psiques</strong>?</p>
+          <div class="r"></div><div class="r"></div><div class="r"></div>
+        </div>
+        <div class="item">
+          <span class="htag">2 · Libertad como control</span>
+          <p class="preg">¿Por qué Han dice que la «libertad» puede funcionar como forma de control? Dale un ejemplo de tu vida cotidiana (redes, escuela, deporte, trabajo).</p>
+          <div class="r"></div><div class="r"></div><div class="r"></div>
+        </div>
+        <div class="item">
+          <span class="htag">3 · Dónde se rompe el GPS</span>
+          <p class="preg">¿Dónde se rompe la metáfora del GPS emocional? (Si solo repetís «es una metáfora», incompleto: nombrá un límite concreto.)</p>
+          <div class="r"></div><div class="r"></div><div class="r"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pie">
+    <span>H-22 · pág. 4 de 4</span>
+    <span>Biopolítica → psicopolítica</span>
+  </div>
+</section>
+
+</body>
+</html>
